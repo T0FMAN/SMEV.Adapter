@@ -1,16 +1,16 @@
 ﻿using SMEV.Adapter.Enums;
 using System.Net.Http.Headers;
 
-namespace SMEV.Adapter.Http
+namespace SMEV.Adapter.Extensions
 {
     internal static class HttpExtensions
     {
         internal static async Task<string> GetResponse(this HttpClient client, Uri uri, string data, MediaType mediaType = MediaType.ApplicationJson)
         {
-            if (data is null) 
+            if (data is null)
                 throw new Exception("Data is null");
 
-            if (!MediaTypeDictionary.TryGetValue(mediaType, out string value)) 
+            if (!MediaTypeDictionary.TryGetValue(mediaType, out var value))
                 throw new Exception("Invalid media type");
 
             var method = HttpMethod.Post;
@@ -23,18 +23,14 @@ namespace SMEV.Adapter.Http
                 request.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(value);
 
                 var response = await client.SendAsync(request);
+                var responseData = await response.Content.ReadAsStringAsync();
 
-                var responseData = await response.ReadHttpResponseMessage();
+                if (!response.IsSuccessStatusCode)
+                    throw new Exception($"Адаптер не смог обработать сообщение.\n" +
+                                        $"Ошибка {response.StatusCode}: {responseData}");
 
                 return responseData;
             };
-        }
-
-        private static async Task<string> ReadHttpResponseMessage(this HttpResponseMessage response)
-        {
-            var data = await response.Content.ReadAsStringAsync();
-
-            return data;
         }
 
         internal readonly static Dictionary<MediaType, string> MediaTypeDictionary = new()

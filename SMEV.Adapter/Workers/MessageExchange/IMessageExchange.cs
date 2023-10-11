@@ -1,4 +1,6 @@
-﻿namespace SMEV.Adapter
+﻿using SMEV.Adapter.Models.Send;
+
+namespace SMEV.Adapter.AdapterWorkers.MessageExchange
 {
     /// <summary>
     /// Интерфейс с набором методов для взаимодействия с веб-сервисом адаптера посредством REST API
@@ -10,7 +12,7 @@
         /// </summary>
         /// <param name="data">Строка параметров для передаваемого контента в формате JSON</param>
         /// <returns></returns>
-        Task<string> Send(string data);
+        Task<ResponseSendAdapter> Send(string data);
         /// <summary>
         /// Метод Get (получение запроса и очереди)
         /// </summary>

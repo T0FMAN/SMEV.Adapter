@@ -1,6 +1,8 @@
-﻿using SMEV.Adapter.Http;
+﻿using Newtonsoft.Json;
+using SMEV.Adapter.Extensions;
+using SMEV.Adapter.Models.Send;
 
-namespace SMEV.Adapter
+namespace SMEV.Adapter.AdapterWorkers.MessageExchange
 {
     public class MessageExchange : IMessageExchange
     {
@@ -10,14 +12,19 @@ namespace SMEV.Adapter
         /// Конструктор для инициализации параметров
         /// </summary>
         /// <param name="address">Адрес веб-сервиса адапатера, включая его контекстный путь, например, 'http://localhost:7590/ws'</param>
-        public MessageExchange(string address)
+        public MessageExchange(string address) // Убрать 'address' после реализации статического конструктора
         {
             _httpClient = new HttpClient();
             Address = address;
         }
 
+        static MessageExchange()
+        {
+            // Добавить инициализацию статических параметров (адрес, мнемоника ИС и тд) из JSON
+        }
+
         public void Dispose() => _httpClient.Dispose();
-        
+
         public async Task<string> Find(string data)
         {
             var uri = new Uri(@$"{Address}/find");
@@ -32,11 +39,13 @@ namespace SMEV.Adapter
             return await _httpClient.GetResponse(uri, data);
         }
 
-        public async Task<string> Send(string data)
+        public async Task<ResponseSendAdapter> Send(string data)
         {
             var uri = new Uri(@$"{Address}/send");
 
-            return await _httpClient.GetResponse(uri, data);
+            var response = await _httpClient.GetResponse(uri, data);
+
+            return JsonConvert.DeserializeObject<ResponseSendAdapter>(response)!;
         }
     }
 }
