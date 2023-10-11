@@ -5,13 +5,15 @@ namespace SMEV.Adapter.Http
 {
     internal static class HttpExtensions
     {
-        internal static async Task<string> GetResponse(this HttpClient client, Uri uri, HttpMethod method, string data, MediaType mediaType = MediaType.ApplicationJson)
+        internal static async Task<string> GetResponse(this HttpClient client, Uri uri, string data, MediaType mediaType = MediaType.ApplicationJson)
         {
             if (data is null) 
                 throw new Exception("Data is null");
 
             if (!MediaTypeDictionary.TryGetValue(mediaType, out string value)) 
                 throw new Exception("Invalid media type");
+
+            var method = HttpMethod.Post;
 
             using (var request = new HttpRequestMessage(method, uri))
             {
