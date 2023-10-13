@@ -1,6 +1,6 @@
 ﻿using SMEV.Adapter.Models.Send;
 
-namespace SMEV.Adapter.AdapterWorkers.MessageExchange
+namespace SMEV.Adapter
 {
     /// <summary>
     /// Интерфейс с набором методов для взаимодействия с веб-сервисом адаптера посредством REST API

@@ -7,13 +7,13 @@ namespace SMEV.Adapter.Models.Send.Request
     {
         public RequestMessage(MessageType messageType, RequestMetadata metadata, SendContentModel content) 
         {
-            MessageType = messageType;
+            MessageType = messageType.ToString();
             Metadata = metadata;
             Content = content;
         }
 
         [JsonProperty("messageType")]
-        public MessageType MessageType { get; set; }
+        public string MessageType { get; set; }
         [JsonProperty("requestMetadata")]
         public RequestMetadata Metadata { get; set; }
         [JsonProperty("requestContent")]

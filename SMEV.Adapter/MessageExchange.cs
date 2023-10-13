@@ -2,7 +2,7 @@
 using SMEV.Adapter.Extensions;
 using SMEV.Adapter.Models.Send;
 
-namespace SMEV.Adapter.AdapterWorkers.MessageExchange
+namespace SMEV.Adapter
 {
     public class MessageExchange : IMessageExchange
     {
