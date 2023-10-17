@@ -10,7 +10,7 @@ namespace SMEV.Adapter.Models.Find
         private DateTimeOffset _from;
         private DateTimeOffset _to;
 
-        private static readonly string mask = "yyyy'-'MM'-'dd'T'HH':'mm':'ssK";
+        private static readonly string mask = "yyyy-MM-dd'T'HH:mm:ssK";
 
         /// <summary>
         /// Инициализация временного диапазона

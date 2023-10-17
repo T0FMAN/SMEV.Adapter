@@ -16,7 +16,7 @@ namespace SMEV.Adapter.Models.Find
         /// <param name="messagePeriod">Критерии временного диапазона, за который необходимо получить сообщения</param>
         /// <param name="countToReturn">Количество сообщений, удовлетворяющих критериям поиска, которое необходимо вернуть</param>
         /// <param name="offset">Размер смещения по списку сообщений или порядковый номер сообщения, с которого начнется отбор запросов</param>
-        public SpecificQuery(MessagePeriodCriteria messagePeriod, int? countToReturn, int? offset)
+        public SpecificQuery(MessagePeriodCriteria messagePeriod, int? countToReturn = null, int? offset = null)
         {
             MessagePeriodCriteria = messagePeriod;
             MessageCountToReturn = countToReturn;
@@ -26,12 +26,12 @@ namespace SMEV.Adapter.Models.Find
         /// <summary>
         /// Инициализация очереди запроса сообщений по идентифкатору запроса
         /// </summary>
-        /// <param name="messageClient">Критерии идентификатора запроса, по которому необходимо получить сообщения</param>
+        /// <param name="clientIdCriteria">Критерии идентификатора запроса, по которому необходимо получить сообщения</param>
         /// <param name="countToReturn">Количество сообщений, удовлетворяющих критериям поиска, которое необходимо вернуть</param>
         /// <param name="offset">Размер смещения по списку сообщений или порядковый номер сообщения, с которого начнется отбор запросов</param>
-        public SpecificQuery(MessageClientIdCriteria messageClient, int? countToReturn, int? offset)
+        public SpecificQuery(MessageClientIdCriteria clientIdCriteria, int? countToReturn = null, int? offset = null)
         {
-            MessageClientIdCriteria = messageClient;
+            MessageClientIdCriteria = clientIdCriteria;
             MessageCountToReturn = countToReturn;
             MessageOffset = offset;
         }
