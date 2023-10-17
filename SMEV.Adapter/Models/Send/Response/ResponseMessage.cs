@@ -5,15 +5,19 @@ namespace SMEV.Adapter.Models.Send.Response
 {
     public sealed class ResponseMessage
     {
-        public ResponseMessage(MessageType messageType, ResponseMetadata metadata, SendContentModel content) 
+        private MessageType _messageType = Enums.MessageType.ResponseMessageType;
+
+        public ResponseMessage(ResponseMetadata metadata, SendContentModel content) 
         { 
-            MessageType = messageType;
             Metadata = metadata;
             Content = content;
         }
 
         [JsonProperty("messageType")]
-        public MessageType MessageType { get; set; }
+        public string MessageType
+        {
+            get { return _messageType.ToString(); }
+        }
         [JsonProperty("responseMetadata")]
         public ResponseMetadata Metadata { get; set; }
         [JsonProperty("responseContent")]

@@ -5,15 +5,19 @@ namespace SMEV.Adapter.Models.Send.Request
 {
     public sealed class RequestMessage
     {
-        public RequestMessage(MessageType messageType, RequestMetadata metadata, SendContentModel content) 
+        private MessageType _messageType = Enums.MessageType.RequestMessageType;
+
+        public RequestMessage(RequestMetadata metadata, SendContentModel content)
         {
-            MessageType = messageType.ToString();
             Metadata = metadata;
             Content = content;
         }
 
         [JsonProperty("messageType")]
-        public string MessageType { get; set; }
+        public string MessageType 
+        { 
+            get { return _messageType.ToString(); }
+        }
         [JsonProperty("requestMetadata")]
         public RequestMetadata Metadata { get; set; }
         [JsonProperty("requestContent")]
