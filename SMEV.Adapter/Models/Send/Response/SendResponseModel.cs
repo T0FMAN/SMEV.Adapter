@@ -10,6 +10,8 @@ namespace SMEV.Adapter.Models.Send.Response
             ResponseMessage = message;
         }
 
+        public SendResponseModel() { }
+
         [JsonProperty("itSystem")]
         public string ItSystem { get; set; }
         [JsonProperty("responseMessage")]

@@ -9,6 +9,8 @@ namespace SMEV.Adapter.Models.Send
             Attachments = attachments;
         }
 
+        public AttachmentHeaderListModel() { }
+
         [JsonProperty("attachmentHeader")]
         public List<AttachmentHeaderModel> Attachments { get; set; }
     }

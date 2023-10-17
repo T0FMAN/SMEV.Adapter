@@ -15,6 +15,8 @@ namespace SMEV.Adapter.Models.Send
             AttachmentHeaderList = attachmentHeaderList;
         }
 
+        public ContentModel() { }
+
         [JsonProperty("messagePrimaryContent")]
         public MessagePrimaryContentModel MessagePrimaryContent { get; set; }
         [JsonProperty("attachmentHeaderList")]

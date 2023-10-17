@@ -9,6 +9,8 @@ namespace SMEV.Adapter.Models.Send
             AnyMessage = message;
         }
 
+        public MessagePrimaryContentModel() { }
+
         [JsonProperty("any")]
         public string AnyMessage { get; set; }
     }

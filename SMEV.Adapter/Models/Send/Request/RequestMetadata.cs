@@ -10,6 +10,8 @@ namespace SMEV.Adapter.Models.Send.Request
             TestMessage = testMessage;
         }
 
+        public RequestMetadata() { }
+
         [JsonProperty("clientId")]
         public string ClientId { get; set; }
         [JsonProperty("testMessage")]

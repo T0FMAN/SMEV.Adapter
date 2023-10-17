@@ -13,6 +13,8 @@ namespace SMEV.Adapter.Models.Send.Response
             Content = content;
         }
 
+        public ResponseMessage() { }
+
         [JsonProperty("messageType")]
         public string MessageType
         {

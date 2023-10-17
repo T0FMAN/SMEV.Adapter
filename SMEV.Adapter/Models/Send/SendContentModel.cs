@@ -9,6 +9,8 @@ namespace SMEV.Adapter.Models.Send
             Content = content;
         }
 
+        public SendContentModel() { }
+
         [JsonProperty("content")]
         public ContentModel Content { get; set; }
     }

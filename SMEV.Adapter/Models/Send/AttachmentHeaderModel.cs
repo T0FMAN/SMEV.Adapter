@@ -9,6 +9,8 @@ namespace SMEV.Adapter.Models.Send
             FilePath = filePath;
         }
 
+        public AttachmentHeaderModel() { }
+
         [JsonProperty("filePath")]
         public string FilePath { get; set; }
     }

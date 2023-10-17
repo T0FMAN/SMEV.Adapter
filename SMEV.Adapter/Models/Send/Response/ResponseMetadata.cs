@@ -10,6 +10,8 @@ namespace SMEV.Adapter.Models.Send.Response
             ReplyToClientId = replyToClientId;
         }
 
+        public ResponseMetadata() { }
+
         [JsonProperty("clientId")]
         public string ClientId { get; set; }
         [JsonProperty("replyToClientId")]
