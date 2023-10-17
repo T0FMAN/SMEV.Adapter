@@ -3,6 +3,9 @@ using SMEV.Adapter.Enums;
 
 namespace SMEV.Adapter.Models.Find
 {
+    /// <summary>
+    /// Контейнер для шаблона поиска запросов по идентификатору запроса
+    /// </summary>
     public sealed class MessageClientIdCriteria
     {
         private ClientCriteriaRequestType _requestType;
@@ -19,8 +22,25 @@ namespace SMEV.Adapter.Models.Find
             };
         }
 
+        /// <summary>
+        /// Инициализация шаблона 
+        /// </summary>
+        /// <param name="clientId">Уникальный идентификатор запроса</param>
+        /// <param name="requestType">Тип запроса</param>
+        public MessageClientIdCriteria(string clientId, ClientCriteriaRequestType requestType)
+        {
+            ClientId = clientId;
+            _requestType = requestType;
+        }
+
+        /// <summary>
+        /// Уникальный идентификатор запроса
+        /// </summary>
         [JsonProperty("clientId")]
         public string ClientId { get; set; }
+        /// <summary>
+        /// Тип запроса
+        /// </summary>
         [JsonProperty("clientIdCriteria")]
         public string ClientIdCriteria 
         { 
@@ -29,19 +49,7 @@ namespace SMEV.Adapter.Models.Find
                 RequestTypeDictionary.TryGetValue(_requestType, out var value);
 
                 return value!; 
-            } 
-            set 
-            {
-                ClientCriteriaRequestType requestType = default;
-
-                foreach (var pair in RequestTypeDictionary)
-                {
-                    if (pair.Value == value)
-                        requestType = pair.Key;
-                }
-
-                _requestType = requestType; 
-            } 
+            }
         }
     }
 }
