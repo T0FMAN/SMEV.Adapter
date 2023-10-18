@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SMEV.Adapter.Enums;
+using SMEV.Adapter.Models.MessageContent;
 
 namespace SMEV.Adapter.Models.Send.Response
 {
@@ -7,7 +8,7 @@ namespace SMEV.Adapter.Models.Send.Response
     {
         private MessageType _messageType = Enums.MessageType.ResponseMessageType;
 
-        public ResponseMessage(ResponseMetadata metadata, SendContentModel content) 
+        public ResponseMessage(ResponseMetadata metadata, ContentModel content) 
         { 
             Metadata = metadata;
             Content = content;
@@ -23,6 +24,6 @@ namespace SMEV.Adapter.Models.Send.Response
         [JsonProperty("responseMetadata")]
         public ResponseMetadata Metadata { get; set; }
         [JsonProperty("responseContent")]
-        public SendContentModel Content { get; set; }
+        public ContentModel Content { get; set; }
     }
 }
