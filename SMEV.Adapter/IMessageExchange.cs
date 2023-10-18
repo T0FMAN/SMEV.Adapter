@@ -1,4 +1,5 @@
-﻿using SMEV.Adapter.Models.Send;
+﻿using SMEV.Adapter.Models.Find.ResponseFound;
+using SMEV.Adapter.Models.Send;
 
 namespace SMEV.Adapter
 {
@@ -8,22 +9,22 @@ namespace SMEV.Adapter
     public interface IMessageExchange : IDisposable
     {
         /// <summary>
-        /// Метод Send (отправка запросов и ответов)
+        /// Метод <c>Send</c> (отправка запросов и ответов)
         /// </summary>
         /// <param name="data">Строка параметров для передаваемого контента в формате JSON</param>
         /// <returns></returns>
-        Task<ResponseSendAdapter> Send(string data);
+        Task<ResponseSentMessage> Send(string data);
         /// <summary>
-        /// Метод Get (получение запроса и очереди)
+        /// Метод <c>Get</c> (получение запроса и очереди)
         /// </summary>
         /// <param name="data">Строка параметров для передаваемого контента в формате JSON</param>
         /// <returns></returns>
         Task<string> Get(string data);
         /// <summary>
-        /// Метод Find (поиск запросов)
+        /// Метод <c>Find</c> (поиск запросов)
         /// </summary>
         /// <param name="data">Строка параметров для передаваемого контента в формате JSON</param>
         /// <returns></returns>
-        Task<string> Find(string data);
+        Task<QueryResult> Find(string data);
     }
 }
