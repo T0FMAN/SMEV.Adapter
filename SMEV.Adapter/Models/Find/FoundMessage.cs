@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
+using SMEV.Adapter.Models.Find.ResponseFound;
 
-namespace SMEV.Adapter.Models.Find.ResponseFound
+namespace SMEV.Adapter.Models.Find
 {
     /// <summary>
     /// Репрезентация найденного сообщения
@@ -16,6 +17,6 @@ namespace SMEV.Adapter.Models.Find.ResponseFound
         /// Данные сообщения
         /// </summary>
         [JsonProperty("message")]
-        public Message Message { get; set; }
+        public RequestMessage Message { get; set; }
     }
 }

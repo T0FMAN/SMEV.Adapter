@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 using SMEV.Adapter.Extensions;
-using SMEV.Adapter.Models.Find.ResponseFound;
+using SMEV.Adapter.Models.Find;
 using SMEV.Adapter.Models.Send;
 
 namespace SMEV.Adapter

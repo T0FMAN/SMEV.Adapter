@@ -5,7 +5,7 @@ VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMEV.Adapter", "SMEV.Adapter\SMEV.Adapter.csproj", "{EDDF7083-C577-4EDA-BADB-5F7B3C6BFF1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMEV.AdapterTests", "SMEV.AdapterTests\SMEV.AdapterTests.csproj", "{FC3F871E-B0D8-417B-BE7E-045386746839}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SMEV.AdapterTests", "SMEV.AdapterTests\SMEV.AdapterTests.csproj", "{FC3F871E-B0D8-417B-BE7E-045386746839}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

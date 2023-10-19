@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Models.Find.ResponseFound
+namespace SMEV.Adapter.Models.Find
 {
     /// <summary>
     /// Класс для десериализации полученной очереди сообщений методом <c>Find</c>

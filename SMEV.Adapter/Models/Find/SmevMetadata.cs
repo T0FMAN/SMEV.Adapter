@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Models.Find.ResponseFound
+namespace SMEV.Adapter.Models.Find
 {
     public sealed class SmevMetadata
     {
@@ -21,11 +21,15 @@ namespace SMEV.Adapter.Models.Find.ResponseFound
         public string MessageId { get; set; }
         [JsonProperty("transactionCode")]
         public string TransactionCode { get; set; }
+        [JsonProperty("originalMessageId")]
+        public string? OriginalMessageId { get; set; }
         [JsonProperty("sender")]
         public string Sender { get; set; }
+        [JsonProperty("recipient")]
+        public string? Recipient { get; set; }
         [JsonProperty("sendingDate")]
-        public string SendingDate 
-        { 
+        public string SendingDate
+        {
             get
             {
                 return _sendingDate.ToString(mask);

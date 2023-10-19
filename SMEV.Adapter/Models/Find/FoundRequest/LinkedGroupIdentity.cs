@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Models.Find.ResponseFound
+namespace SMEV.Adapter.Models.Find.FoundRequest
 {
     public sealed class LinkedGroupIdentity
     {

@@ -2,14 +2,14 @@
 using SMEV.Adapter.Enums;
 using SMEV.Adapter.Models.MessageContent;
 
-namespace SMEV.Adapter.Models.Find.ResponseFound
+namespace SMEV.Adapter.Models.Find.FoundRequest
 {
-    public sealed class Message
+    public sealed class RequestMessage
     {
         [JsonProperty("messageType")]
         public MessageType MessageType { get; set; }
         [JsonProperty("requestMetadata")]
-        public RequestMetadata RequestMetadata { get; set; }
+        public FindRequestMetadata? RequestMetadata { get; set; }
         [JsonProperty("requestContent")]
         public ContentModel RequestContent { get; set; }
     }
