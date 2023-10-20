@@ -1,5 +1,8 @@
-﻿using SMEV.Adapter.Models.Find;
+﻿using SMEV.Adapter.Exceptions;
+using SMEV.Adapter.Models.Find;
 using SMEV.Adapter.Models.Send;
+using SMEV.Adapter.Models.Send.Request;
+using SMEV.Adapter.Models.Send.Response;
 
 namespace SMEV.Adapter
 {
@@ -11,9 +14,12 @@ namespace SMEV.Adapter
         /// <summary>
         /// Метод <c>Send</c> (отправка запросов и ответов)
         /// </summary>
-        /// <param name="data">Строка параметров для передаваемого контента в формате JSON</param>
-        /// <returns></returns>
-        Task<ResponseSentMessage> Send(string data);
+        /// <param name="message">
+        /// Передаваемая модель сообщения. 
+        /// Допустима отправка только <see cref="SendRequestModel"/> или <see cref="SendResponseModel"/></param>
+        /// <returns>Ответ адаптера на отправленное сообщение</returns>
+        /// <exception cref="InvalidArgumentSendedMessageException"></exception>
+        Task<ResponseSentMessage> Send(object message);
         /// <summary>
         /// Метод <c>Get</c> (получение запроса и очереди)
         /// </summary>
@@ -23,8 +29,8 @@ namespace SMEV.Adapter
         /// <summary>
         /// Метод <c>Find</c> (поиск запросов)
         /// </summary>
-        /// <param name="data">Строка параметров для передаваемого контента в формате JSON</param>
+        /// <param name="findModel">Модель критериев поиска сообщений</param>
         /// <returns></returns>
-        Task<QueryResult> Find(string data);
+        Task<QueryResult> Find(FindModel findModel);
     }
 }

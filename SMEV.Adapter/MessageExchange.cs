@@ -1,7 +1,10 @@
 ﻿using Newtonsoft.Json;
+using SMEV.Adapter.Exceptions;
 using SMEV.Adapter.Extensions;
 using SMEV.Adapter.Models.Find;
 using SMEV.Adapter.Models.Send;
+using SMEV.Adapter.Models.Send.Request;
+using SMEV.Adapter.Models.Send.Response;
 
 namespace SMEV.Adapter
 {
@@ -30,13 +33,17 @@ namespace SMEV.Adapter
         /// <inheritdoc />
         public void Dispose() => _httpClient.Dispose();
         /// <inheritdoc />
-        public async Task<QueryResult> Find(string data)
+        public async Task<QueryResult> Find(FindModel findModel)
         {
             var uri = new Uri(@$"{Address}/find");
 
+            var data = JsonConvert.SerializeObject(findModel);
+
             var response = await _httpClient.GetResponse(uri, data);
 
-            return JsonConvert.DeserializeObject<QueryResult>(response)!;
+            var queryResult = JsonConvert.DeserializeObject<QueryResult>(response)!;
+
+            return queryResult;
         }
         /// <inheritdoc />
         public async Task<string> Get(string data)
@@ -46,9 +53,14 @@ namespace SMEV.Adapter
             return await _httpClient.GetResponse(uri, data);
         }
         /// <inheritdoc />
-        public async Task<ResponseSentMessage> Send(string data)
+        public async Task<ResponseSentMessage> Send(object message)
         {
+            if (message is not SendRequestModel or SendResponseModel)
+                throw new InvalidArgumentSendedMessageException();
+
             var uri = new Uri(@$"{Address}/send");
+
+            var data = JsonConvert.SerializeObject(message);
 
             var response = await _httpClient.GetResponse(uri, data);
 
