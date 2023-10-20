@@ -1,12 +1,11 @@
 ﻿using Newtonsoft.Json;
-using SMEV.Adapter.Models.Find.ResponseFound;
 
 namespace SMEV.Adapter.Models.Find
 {
     /// <summary>
     /// Репрезентация найденного сообщения
     /// </summary>
-    public sealed class FoundMessage
+    public sealed class FoundMessage<T> where T : class
     {
         /// <summary>
         /// Метадата данных СМЭВ
@@ -17,6 +16,6 @@ namespace SMEV.Adapter.Models.Find
         /// Данные сообщения
         /// </summary>
         [JsonProperty("message")]
-        public RequestMessage Message { get; set; }
+        public T Message { get; set; }
     }
 }

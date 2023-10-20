@@ -9,12 +9,9 @@ namespace SMEV.Adapter.Models.Find
         private readonly string mask = "yyyy-mm-dd'T'HH:mm:ss.ff'Z'";
 
         [JsonConstructor]
-        public SmevMetadata(DateTime sendingDate, string messageId, string transactionCode, string sender)
+        public SmevMetadata(DateTime sendingDate)
         {
             _sendingDate = sendingDate;
-            MessageId = messageId;
-            TransactionCode = transactionCode;
-            Sender = sender;
         }
 
         [JsonProperty("messageId")]
@@ -22,11 +19,11 @@ namespace SMEV.Adapter.Models.Find
         [JsonProperty("transactionCode")]
         public string TransactionCode { get; set; }
         [JsonProperty("originalMessageId")]
-        public string? OriginalMessageId { get; set; }
+        public string OriginalMessageId { get; set; }
         [JsonProperty("sender")]
         public string Sender { get; set; }
         [JsonProperty("recipient")]
-        public string? Recipient { get; set; }
+        public string Recipient { get; set; }
         [JsonProperty("sendingDate")]
         public string SendingDate
         {

@@ -16,12 +16,15 @@ namespace SMEV.Adapter.Models.MessageContent
             Content = content;
         }
 
-        public ContentModel() { }
-
         /// <summary>
         /// Передаваемый контент
         /// </summary>
         [JsonProperty("content")]
-        public Content Content { get; set; }
+        public Content? Content { get; set; }
+        /// <summary>
+        /// Статус сообщения (генерируется только при десерализации ответа)
+        /// </summary>
+        [JsonProperty("status")]
+        public Status? Status { get; private set; }
     }
 }

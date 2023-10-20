@@ -11,6 +11,6 @@ namespace SMEV.Adapter.Models.Find
         /// Список найденных сообщений из очереди
         /// </summary>
         [JsonProperty("queryResult")]
-        public List<FoundMessage> FoundMessages { get; set; }
+        public List<FoundMessage<object>> FoundMessages { get; set; }
     }
 }

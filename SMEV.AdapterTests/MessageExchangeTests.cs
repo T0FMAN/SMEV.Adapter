@@ -1,12 +1,19 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using SMEV.Adapter;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace SMEV.Adapter.Tests
 {
     [TestClass()]
-    internal class MessageExchangeTests
+    public class MessageExchangeTests
     {
         [TestMethod()]
         public void FindTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void SendTest()
         {
             Assert.Fail();
         }
