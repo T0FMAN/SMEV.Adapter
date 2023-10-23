@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-using SMEV.Adapter.Enums;
+﻿using SMEV.Adapter.Enums;
 using SMEV.Adapter.Exceptions;
 using SMEV.Adapter.Extensions;
-using SMEV.Adapter.Helpers;
 using SMEV.Adapter.Models.Find;
 using SMEV.Adapter.Models.Send;
 using SMEV.Adapter.Models.Send.Request;
@@ -15,24 +13,30 @@ namespace SMEV.Adapter
     /// </summary>
     public sealed class MessageExchange : IMessageExchange
     {
+        private readonly MessageExchangeOptions _options;
+
         private readonly HttpClient _httpClient;
-        private readonly string Address;
+
+        private MessageExchange(
+            MessageExchangeOptions options, 
+            HttpClient? httpClient = default)
+        {
+            _options = options ?? throw new ArgumentNullException(nameof(options));
+            _httpClient = httpClient ?? new HttpClient() { BaseAddress = new Uri(_options.BaseAddress) };
+        }
 
         /// <summary>
-        /// Конструктор для инициализации параметров
+        /// Инициализация нового экземпляра <see cref="MessageExchange"/>
         /// </summary>
-        /// <param name="address">Адрес веб-сервиса адапатера, включая его контекстный путь. 
-        /// Например, 'http://localhost:7590/ws'</param>
-        public MessageExchange(string address) // Убрать 'address' после реализации статического конструктора
-        {
-            _httpClient = new HttpClient();
-            Address = address;
-        }
-
-        static MessageExchange()
-        {
-            // Добавить инициализацию статических параметров (адрес, мнемоника ИС и тд) из JSON
-        }
+        /// <param name="address">Адрес веб-сервиса адаптера</param>
+        /// <param name="mnemonicIS">Мнемоника ИС</param>
+        /// <param name="httpClient">Экземпляр HttpClient</param>
+        public MessageExchange(
+            string address, 
+            string mnemonicIS, 
+            HttpClient? httpClient = null) : 
+            this(new MessageExchangeOptions(address, mnemonicIS), httpClient)
+        { }
 
         /// <inheritdoc />
         public void Dispose() => _httpClient.Dispose();
@@ -48,9 +52,9 @@ namespace SMEV.Adapter
         /// <inheritdoc />
         public async Task<string> Get(string data)
         {
-            var uri = new Uri(@$"{Address}/get");
+            var result = await _httpClient.ExecuteRequestToSmev<string>(EndpointAdapter.get, data);
 
-            return await _httpClient.GetResponse(uri, data);
+            return result;
         }
 
         /// <inheritdoc />
