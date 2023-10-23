@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
+using SMEV.Adapter.Enums;
 using SMEV.Adapter.Exceptions;
 using SMEV.Adapter.Extensions;
+using SMEV.Adapter.Helpers;
 using SMEV.Adapter.Models.Find;
 using SMEV.Adapter.Models.Send;
 using SMEV.Adapter.Models.Send.Request;
@@ -15,6 +17,7 @@ namespace SMEV.Adapter
     {
         private readonly HttpClient _httpClient;
         private readonly string Address;
+
         /// <summary>
         /// Конструктор для инициализации параметров
         /// </summary>
@@ -30,21 +33,18 @@ namespace SMEV.Adapter
         {
             // Добавить инициализацию статических параметров (адрес, мнемоника ИС и тд) из JSON
         }
+
         /// <inheritdoc />
         public void Dispose() => _httpClient.Dispose();
+
         /// <inheritdoc />
-        public async Task<QueryResult> Find(FindModel findModel)
+        public async Task<QueryResult<object>> Find(FindModel findModel)
         {
-            var uri = new Uri(@$"{Address}/find");
+            var queryResult = await _httpClient.ExecuteRequestToSmev<QueryResult<object>>(EndpointAdapter.find, findModel);
 
-            var data = JsonConvert.SerializeObject(findModel);
-
-            var response = await _httpClient.GetResponse(uri, data);
-
-            var queryResult = JsonConvert.DeserializeObject<QueryResult>(response)!;
-
-            return queryResult;
+            return queryResult ?? throw new NullDeserializeResultException();
         }
+
         /// <inheritdoc />
         public async Task<string> Get(string data)
         {
@@ -52,19 +52,16 @@ namespace SMEV.Adapter
 
             return await _httpClient.GetResponse(uri, data);
         }
+
         /// <inheritdoc />
         public async Task<ResponseSentMessage> Send(object message)
         {
             if (message is not SendRequestModel or SendResponseModel)
                 throw new InvalidArgumentSendedMessageException();
 
-            var uri = new Uri(@$"{Address}/send");
+            var sentMessage = await _httpClient.ExecuteRequestToSmev<ResponseSentMessage>(EndpointAdapter.send, message);
 
-            var data = JsonConvert.SerializeObject(message);
-
-            var response = await _httpClient.GetResponse(uri, data);
-
-            return JsonConvert.DeserializeObject<ResponseSentMessage>(response)!;
+            return sentMessage ?? throw new NullDeserializeResultException();
         }
     }
 }
