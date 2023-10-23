@@ -31,8 +31,8 @@ namespace SMEV.Adapter.Helpers
 
             object model = endpoint switch
             {
-                EndpointAdapter.send => JsonHelper<ResponseSentMessage>.DeserializeResponseSmev(response),
-                EndpointAdapter.find => JsonHelper<QueryResult<object>>.DeserializeResponseSmev(response),
+                EndpointAdapter.send => JsonHelper.DeserializeResponseSmev<ResponseSentMessage>(response),
+                EndpointAdapter.find => JsonHelper.DeserializeResponseSmev<QueryResult<object>>(response),
                 _ => throw new NotImplementedException()
             };
 
