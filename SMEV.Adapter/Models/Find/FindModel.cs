@@ -24,7 +24,7 @@ namespace SMEV.Adapter.Models.Find
         [JsonProperty("itSystem")]
         public string ItSystem { get; set; }
         /// <summary>
-        /// Контейнер, включает варианты запроса сообщений
+        /// Контейнер вариантов запроса сообщений
         /// </summary>
         [JsonProperty("specificQuery")]
         public SpecificQuery SpecificQuery { get; set; }
