@@ -1,25 +1,63 @@
 ﻿using Newtonsoft.Json;
 using SMEV.Adapter.Enums;
-using SMEV.Adapter.Models.Find.FoundRequest;
-using SMEV.Adapter.Models.Find.FoundResponse;
 using SMEV.Adapter.Models.MessageContent;
+using SMEV.Adapter.Models.MessageMetadata;
 
 namespace SMEV.Adapter.Models.Find
 {
     /// <summary>
-    /// Класс для десериализации ответа JSON-блока 'message'
+    /// Репрезентация блока 'message' найденного сообщения
     /// </summary>
     public class Message
     {
         /// <summary>
+        /// JSON-конструктор
+        /// </summary>
+        /// <param name="messageType"></param>
+        /// <param name="responseMetadata"></param>
+        /// <param name="requestMetadata"></param>
+        /// <param name="responseContent"></param>
+        /// <param name="requestContent"></param>
+        /// <param name="rejects"></param>
+        [JsonConstructor]
+        public Message(
+            MessageType messageType,
+            Metadata? responseMetadata,
+            Metadata? requestMetadata,
+            ContentModel? responseContent,
+            ContentModel? requestContent,
+            List<Status>? rejects)
+        {
+            MessageType = messageType;
+            Rejects = rejects;
+
+            if (responseMetadata is not null && responseContent is not null)
+            {
+                Content = responseContent;
+                Metadata = responseMetadata;
+            }
+            if (requestMetadata is not null && requestContent is not null)
+            {
+                Content = requestContent;
+                Metadata = requestMetadata;
+            }
+        }
+
+        /// <summary>
         /// Тип сообщения
         /// </summary>
-        [JsonProperty("messageType")]
-        public MessageType MessageType { get; set; }
+        public MessageType MessageType { get; private set; }
         /// <summary>
-        /// В случае статуса 'отклонено' десериализация списка включающих в сообщение статусов
+        /// Метаданные сообщения
         /// </summary>
-        [JsonProperty("rejects")]
-        public List<Status>? Rejects { get; set; }
+        public Metadata Metadata { get; private set; }
+        /// <summary>
+        /// Контент сообщения
+        /// </summary>
+        public ContentModel Content { get; private set; }
+        /// <summary>
+        /// Ошибки в случае отклонения сообщения адаптером
+        /// </summary>
+        public List<Status>? Rejects { get; private set; }
     }
 }
