@@ -17,7 +17,13 @@ namespace SMEV.Adapter
 
         private readonly HttpClient _httpClient;
 
-        private MessageExchange(
+        /// <summary>
+        /// Инициализация нового экземпляра <see cref="MessageExchange"/>
+        /// </summary>
+        /// <param name="options">Экземпляр конфигурации</param>
+        /// <param name="httpClient">Экземпляр HttpClient</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public MessageExchange(
             MessageExchangeOptions options, 
             HttpClient? httpClient = default)
         {
@@ -28,24 +34,24 @@ namespace SMEV.Adapter
         /// <summary>
         /// Инициализация нового экземпляра <see cref="MessageExchange"/>
         /// </summary>
-        /// <param name="address">Адрес веб-сервиса адаптера</param>
+        /// <param name="baseAddress">Адрес веб-сервиса адаптера</param>
         /// <param name="mnemonicIS">Мнемоника ИС</param>
         /// <param name="httpClient">Экземпляр HttpClient</param>
         public MessageExchange(
-            string address, 
+            string baseAddress, 
             string mnemonicIS, 
             HttpClient? httpClient = null) : 
-            this(new MessageExchangeOptions(address, mnemonicIS), httpClient)
+            this(new MessageExchangeOptions(baseAddress, mnemonicIS), httpClient)
         { }
 
         /// <inheritdoc />
         public void Dispose() => _httpClient.Dispose();
 
         /// <inheritdoc />
-        public async Task<QueryResult<object>> Find(FindModel findModel)
+        public async Task<QueryResult> Find(FindModel findModel)
         {
-            var queryResult = await _httpClient.ExecuteRequestToSmev<QueryResult<object>>(EndpointAdapter.find, findModel);
-
+            var queryResult = await _httpClient.ExecuteRequestToSmev<QueryResult>(EndpointAdapter.find, findModel);
+            
             return queryResult ?? throw new NullDeserializeResultException();
         }
 

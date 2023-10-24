@@ -31,6 +31,6 @@ namespace SMEV.Adapter
         /// </summary>
         /// <param name="findModel">Модель критериев поиска сообщений</param>
         /// <returns>Найденная очередь сообщений, удовлетворяющая критериям поиска</returns>
-        Task<QueryResult<object>> Find(FindModel findModel);
+        Task<QueryResult> Find(FindModel findModel);
     }
 }
