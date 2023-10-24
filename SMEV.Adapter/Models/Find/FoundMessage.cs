@@ -58,19 +58,8 @@ namespace SMEV.Adapter.Models.Find
         public object Message 
         {
             get 
-            { 
-                switch (_messageType)
-                {
-                    case MessageType.RequestMessageType:
-                        {
-                            return _message as FoundRequestMessage;
-                        }
-                    case MessageType.ResponseMessageType:
-                        {
-                            return _message as FoundResponseMessage;
-                        }
-                    default: throw new InvalidDataException();
-                }
+            {
+                return _message;
             }
         }
     }
