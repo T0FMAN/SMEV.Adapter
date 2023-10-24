@@ -3,7 +3,7 @@
 namespace SMEV.Adapter.Models.Send
 {
     /// <summary>
-    /// Класс для десериализации ответа от адаптера по методу <c>/send</c>
+    /// Класс для десериализации ответа от адаптера по методу <c>Send</c>
     /// </summary>
     public sealed class ResponseSentMessage
     {
