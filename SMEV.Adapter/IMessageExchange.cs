@@ -30,7 +30,8 @@ namespace SMEV.Adapter
         /// Метод <c>Find</c> (поиск запросов)
         /// </summary>
         /// <param name="findModel">Модель критериев поиска сообщений</param>
+        /// <param name="isSingleMnemonic">Единственная мнемоника ИС</param>
         /// <returns>Найденная очередь сообщений, удовлетворяющая критериям поиска</returns>
-        Task<QueryResult> Find(FindModel findModel);
+        Task<QueryResult> Find(FindModel findModel, bool isSingleMnemonic = true);
     }
 }

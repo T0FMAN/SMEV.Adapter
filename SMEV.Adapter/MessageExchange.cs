@@ -48,8 +48,11 @@ namespace SMEV.Adapter
         public void Dispose() => _httpClient.Dispose();
 
         /// <inheritdoc />
-        public async Task<QueryResult> Find(FindModel findModel)
+        public async Task<QueryResult> Find(FindModel findModel, bool isSingleIS = true)
         {
+            if (isSingleIS)
+                findModel.MnemonicIS = _options.MnemonicIS;
+
             var queryResult = await _httpClient.ExecuteRequestToSmev<QueryResult>(EndpointAdapter.find, findModel);
             
             return queryResult ?? throw new NullDeserializeResultException();
