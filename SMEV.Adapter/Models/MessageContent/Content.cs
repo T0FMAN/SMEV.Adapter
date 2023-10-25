@@ -18,8 +18,6 @@ namespace SMEV.Adapter.Models.MessageContent
             AttachmentHeaderList = attachmentHeaderList;
         }
 
-        public Content() { }
-
         /// <summary>
         /// Контейнер, содержащий сообщения запроса
         /// </summary>

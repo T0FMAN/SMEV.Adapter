@@ -16,6 +16,6 @@ namespace SMEV.Adapter.Models.Find
         /// Данные сообщения
         /// </summary>
         [JsonProperty("message")]
-        public Message Message { get; set; }
+        public FindMessage Message { get; set; }
     }
 }

@@ -16,8 +16,6 @@ namespace SMEV.Adapter.Models.MessageContent
             AnyMessage = message;
         }
 
-        public MessagePrimaryContent() { }
-
         /// <summary>
         /// Бизнес-данные запроса, сформированные по XSD-схеме ВС в формате XML
         /// </summary>

@@ -27,7 +27,7 @@ namespace SMEV.Adapter.Extensions
 
                 if (!response.IsSuccessStatusCode)
                     throw new Exception($"Адаптер не смог обработать сообщение.\n" +
-                                        $"Ошибка {response.StatusCode}: {responseData}");
+                                        $"Ошибка {response.StatusCode} ({(int)response.StatusCode}): {responseData}");
 
                 return responseData;
             };
