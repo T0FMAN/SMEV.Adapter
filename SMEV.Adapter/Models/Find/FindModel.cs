@@ -3,18 +3,28 @@
 namespace SMEV.Adapter.Models.Find
 {
     /// <summary>
-    /// Класс модели для метода <c>Find</c>
+    /// Модель метода <c>Find</c>
     /// </summary>
     public sealed class FindModel
     {
         /// <summary>
-        /// Инициализация класса модели <c>Find</c>
+        /// Инициализация модели <c>Find</c> с другой мнемоникой, 
+        /// отличной от указанной в параметрах при инициализации экземпляра <see cref="MessageExchange"/>
         /// </summary>
         /// <param name="mnemonicIS">Мнемоника ИС (код ИС в ИУА)</param>
-        /// <param name="specificQuery">Контейнер, включает варианты запроса сообщений</param>
+        /// <param name="specificQuery">Контейнер c параметрами запроса сообщений</param>
         public FindModel(string mnemonicIS, SpecificQuery specificQuery) 
         {
-            ItSystem = mnemonicIS;
+            MnemonicIS = mnemonicIS;
+            SpecificQuery = specificQuery;
+        }
+
+        /// <summary>
+        /// Инициализация модели <c>Find</c>
+        /// </summary>
+        /// <param name="specificQuery">Контейнер c параметрами запроса сообщений</param>
+        public FindModel(SpecificQuery specificQuery) 
+        {
             SpecificQuery = specificQuery;
         }
 
@@ -22,11 +32,11 @@ namespace SMEV.Adapter.Models.Find
         /// Мнемоника ИС (код ИС в ИУА)
         /// </summary>
         [JsonProperty("itSystem")]
-        public string ItSystem { get; set; }
+        public string MnemonicIS { get; set; } = default!;
         /// <summary>
         /// Контейнер вариантов запроса сообщений
         /// </summary>
         [JsonProperty("specificQuery")]
-        public SpecificQuery SpecificQuery { get; set; }
+        public SpecificQuery SpecificQuery { get; set; } = default!;
     }
 }
