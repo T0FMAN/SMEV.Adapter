@@ -3,12 +3,35 @@ using SMEV.Adapter.Enums;
 using SMEV.Adapter.Helpers;
 using SMEV.Adapter.Models.Find;
 using SMEV.Adapter.Models.Send;
+using SMEV.Adapter.Models.Send.Request;
+using SMEV.Adapter.Models.Send.Response;
 using System.ComponentModel;
 
 namespace SMEV.Adapter.Extensions
 {
     internal static class AdapterExtensions
     {
+        internal static object SetModelMnemonicIS(this object model, string mnemonicIS)
+        {
+            if (model is SendRequestModel)
+            {
+                var sendRequestModel = (SendRequestModel)model;
+
+                sendRequestModel.MnemonicIS = mnemonicIS;
+
+                return sendRequestModel;
+            }
+            else if (model is SendResponseModel)
+            {
+                var sendResponseModel = (SendResponseModel)model;
+
+                sendResponseModel.MnemonicIS = mnemonicIS;
+
+                return sendResponseModel;
+            }
+            else throw new TypeInitializationException(nameof(model), new Exception("Type not supported"));
+        }
+
         internal static async Task<Model> ExecuteRequestToSmev<Model>(this HttpClient httpClient, EndpointAdapter endpoint, object messageBody)
         {
             var uri = new Uri(@$"{httpClient.BaseAddress}/{endpoint}");
