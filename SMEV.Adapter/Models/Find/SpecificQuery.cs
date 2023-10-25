@@ -27,13 +27,9 @@ namespace SMEV.Adapter.Models.Find
         /// Инициализация очереди запроса сообщений по идентифкатору запроса
         /// </summary>
         /// <param name="clientIdCriteria">Критерии идентификатора запроса, по которому необходимо получить сообщения</param>
-        /// <param name="countToReturn">Количество сообщений, удовлетворяющих критериям поиска, которое необходимо вернуть</param>
-        /// <param name="offset">Размер смещения по списку сообщений или порядковый номер сообщения, с которого начнется отбор запросов</param>
-        public SpecificQuery(MessageClientIdCriteria clientIdCriteria, int? countToReturn = null, int? offset = null)
+        public SpecificQuery(MessageClientIdCriteria clientIdCriteria)
         {
             MessageClientIdCriteria = clientIdCriteria;
-            MessageCountToReturn = countToReturn;
-            MessageOffset = offset;
         }
 
         /// <summary>
