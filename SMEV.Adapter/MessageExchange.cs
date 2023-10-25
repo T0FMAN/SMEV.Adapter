@@ -1,6 +1,7 @@
 ﻿using SMEV.Adapter.Enums;
 using SMEV.Adapter.Exceptions;
 using SMEV.Adapter.Extensions;
+using SMEV.Adapter.Models;
 using SMEV.Adapter.Models.Find;
 using SMEV.Adapter.Models.Send;
 using SMEV.Adapter.Models.Send.Request;
@@ -36,21 +37,23 @@ namespace SMEV.Adapter
         /// </summary>
         /// <param name="baseAddress">Адрес веб-сервиса адаптера</param>
         /// <param name="mnemonicIS">Мнемоника ИС</param>
+        /// <param name="isSingleIS">Одна ли информационная система, от которой будут исходить запросы</param>
         /// <param name="httpClient">Экземпляр HttpClient</param>
         public MessageExchange(
             string baseAddress, 
             string mnemonicIS, 
+            bool isSingleIS = true,
             HttpClient? httpClient = null) : 
-            this(new MessageExchangeOptions(baseAddress, mnemonicIS), httpClient)
+            this(new MessageExchangeOptions(baseAddress, mnemonicIS, isSingleIS), httpClient)
         { }
 
         /// <inheritdoc />
         public void Dispose() => _httpClient.Dispose();
 
         /// <inheritdoc />
-        public async Task<QueryResult> Find(FindModel findModel, bool isSingleIS = true)
+        public async Task<QueryResult> Find(FindModel findModel)
         {
-            if (isSingleIS)
+            if (_options.IsSingleIS)
                 findModel.MnemonicIS = _options.MnemonicIS;
 
             var queryResult = await _httpClient.ExecuteRequestToSmev<QueryResult>(EndpointAdapter.find, findModel);
@@ -72,7 +75,12 @@ namespace SMEV.Adapter
             if (message is not SendRequestModel or SendResponseModel)
                 throw new InvalidArgumentSendedMessageException();
 
-            var sentMessage = await _httpClient.ExecuteRequestToSmev<ResponseSentMessage>(EndpointAdapter.send, message);
+            var messageBody = message;
+
+            if (_options.IsSingleIS)
+                messageBody = message.SetModelMnemonicIS(_options.MnemonicIS);
+
+            var sentMessage = await _httpClient.ExecuteRequestToSmev<ResponseSentMessage>(EndpointAdapter.send, messageBody);
 
             return sentMessage ?? throw new NullDeserializeResultException();
         }
