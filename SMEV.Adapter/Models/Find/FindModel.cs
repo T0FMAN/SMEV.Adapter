@@ -29,6 +29,29 @@ namespace SMEV.Adapter.Models.Find
         }
 
         /// <summary>
+        /// Инициалиазция поиска сообщений по идентификатору сообщения
+        /// </summary>
+        /// <param name="clientId"></param>
+        /// <param name="isReqByReq"></param>
+        /// <param name="isResByRes"></param>
+        /// <param name="isResByReq"></param>
+        public FindModel(string clientId, bool isReqByReq = true, bool isResByRes = true, bool isResByReq = true):
+            this(new SpecificQuery(clientId, isReqByReq, isResByRes, isResByReq))
+        { }
+
+        /// <summary>
+        /// Инициалиазция поиска сообщений по идентификатору сообщения от лица другой мнемоники
+        /// </summary>
+        /// <param name="mnemonicIS"></param>
+        /// <param name="clientId"></param>
+        /// <param name="isReqByReq"></param>
+        /// <param name="isResByRes"></param>
+        /// <param name="isResByReq"></param>
+        public FindModel(string mnemonicIS, string clientId, bool isReqByReq = true, bool isResByRes = true, bool isResByReq = true) :
+            this(mnemonicIS, new SpecificQuery(clientId, isReqByReq, isResByRes, isResByReq))
+        { }
+
+        /// <summary>
         /// Мнемоника ИС (код ИС в ИУА)
         /// </summary>
         [JsonProperty("itSystem")]

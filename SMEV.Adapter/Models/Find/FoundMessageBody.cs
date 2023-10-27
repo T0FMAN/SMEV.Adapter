@@ -8,7 +8,7 @@ namespace SMEV.Adapter.Models.Find
     /// <summary>
     /// Репрезентация блока 'message' найденного сообщения
     /// </summary>
-    public class FindMessage
+    public class FoundMessageBody
     {
         /// <summary>
         /// JSON-конструктор
@@ -20,7 +20,7 @@ namespace SMEV.Adapter.Models.Find
         /// <param name="requestContent"></param>
         /// <param name="rejects"></param>
         [JsonConstructor]
-        public FindMessage(
+        public FoundMessageBody(
             MessageType messageType,
             Metadata? responseMetadata,
             Metadata? requestMetadata,

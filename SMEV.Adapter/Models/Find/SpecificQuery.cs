@@ -24,12 +24,16 @@ namespace SMEV.Adapter.Models.Find
         }
 
         /// <summary>
-        /// Инициализация очереди запроса сообщений по идентифкатору запроса
+        /// Инициализация очереди запроса сообщений по идентифкатору запроса.
+        /// По умолчанию в параметры 
         /// </summary>
-        /// <param name="clientIdCriteria">Критерии идентификатора запроса, по которому необходимо получить сообщения</param>
-        public SpecificQuery(MessageClientIdCriteria clientIdCriteria)
+        /// <param name="clientId">Критерии идентификатора запроса, по которому необходимо получить сообщения</param>
+        /// <param name="isReqByReq"></param>
+        /// <param name="isResByRes"></param>
+        /// <param name="isResByReq"></param>
+        public SpecificQuery(string clientId, bool isReqByReq, bool isResByRes, bool isResByReq)
         {
-            MessageClientIdCriteria = clientIdCriteria;
+            MessageClientIdCriteria = new MessageClientIdCriteria(clientId, isResByReq, isResByRes, isReqByReq);
         }
 
         /// <summary>

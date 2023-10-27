@@ -8,7 +8,10 @@ namespace SMEV.Adapter.Models.Find
     /// </summary>
     public sealed class MessageClientIdCriteria
     {
-        private ClientCriteriaRequestType _requestType;
+        /// <summary>
+        /// 
+        /// </summary>
+        public ClientCriteriaRequestType RequestType { private get; set; }
 
         private static readonly Dictionary<ClientCriteriaRequestType, string> RequestTypeDictionary;
 
@@ -23,14 +26,18 @@ namespace SMEV.Adapter.Models.Find
         }
 
         /// <summary>
-        /// Инициализация шаблона 
+        /// 
         /// </summary>
-        /// <param name="clientId">Уникальный идентификатор запроса</param>
-        /// <param name="requestType">Тип запроса</param>
-        public MessageClientIdCriteria(string clientId, ClientCriteriaRequestType requestType)
+        /// <param name="clientId"></param>
+        /// <param name="isReqByReq"></param>
+        /// <param name="isResByRes"></param>
+        /// <param name="isResByReq"></param>
+        public MessageClientIdCriteria(string clientId, bool isReqByReq, bool isResByRes, bool isResByReq)
         {
             ClientId = clientId;
-            _requestType = requestType;
+            IsReqByReq = isReqByReq;
+            IsResByRes = isResByRes;
+            IsResByReq = isResByReq;
         }
 
         /// <summary>
@@ -46,10 +53,25 @@ namespace SMEV.Adapter.Models.Find
         { 
             get 
             {
-                RequestTypeDictionary.TryGetValue(_requestType, out var value);
+                RequestTypeDictionary.TryGetValue(RequestType, out var value);
 
                 return value!; 
             }
         }
+        /// <summary>
+        /// Включить сообщения запроса на запрос
+        /// </summary>
+        [JsonIgnore]
+        public bool IsReqByReq { get; set; }
+        /// <summary>
+        /// Включить сообщения ответа на ответ
+        /// </summary>
+        [JsonIgnore]
+        public bool IsResByRes { get; set; }
+        /// <summary>
+        /// Включить сообщения ответа на запрос
+        /// </summary>
+        [JsonIgnore]
+        public bool IsResByReq { get; set; }
     }
 }
