@@ -1,11 +1,12 @@
 ﻿using SMEV.Adapter.Enums;
 using SMEV.Adapter.Exceptions;
 using SMEV.Adapter.Extensions;
-using SMEV.Adapter.Models;
 using SMEV.Adapter.Models.Find;
+using SMEV.Adapter.Models.Get;
 using SMEV.Adapter.Models.Send;
 using SMEV.Adapter.Models.Send.Request;
 using SMEV.Adapter.Models.Send.Response;
+using System.Runtime.CompilerServices;
 
 namespace SMEV.Adapter
 {
@@ -50,39 +51,88 @@ namespace SMEV.Adapter
         /// <inheritdoc />
         public void Dispose() => _httpClient.Dispose();
 
+        #region Find method
         /// <inheritdoc />
         public async Task<QueryResult> Find(FindModel findModel)
         {
+            var queryResult = new QueryResult();
+
             if (_options.IsSingleIS)
                 findModel.MnemonicIS = _options.MnemonicIS;
 
-            var queryResult = await _httpClient.ExecuteRequestToSmev<QueryResult>(EndpointAdapter.find, findModel);
-            
-            return queryResult ?? throw new NullDeserializeResultException();
-        }
+            if (findModel.SpecificQuery.MessageClientIdCriteria is not null)
+            {
+                var isReqByReq = findModel.SpecificQuery.MessageClientIdCriteria.IsReqByReq;
+                var isResbyReq = findModel.SpecificQuery.MessageClientIdCriteria.IsResByReq;
+                var isResByRes = findModel.SpecificQuery.MessageClientIdCriteria.IsResByRes;
 
+                if (isReqByReq)
+                {
+                    findModel.SpecificQuery.MessageClientIdCriteria.RequestType = ClientCriteriaRequestType.RequestByRequest;
+                    
+                    await FindAndConcatResult(findModel);
+                }
+                if (isResbyReq)
+                {
+                    findModel.SpecificQuery.MessageClientIdCriteria.RequestType = ClientCriteriaRequestType.ResponseByRequest;
+
+                    await FindAndConcatResult(findModel);
+                }
+                if (isResByRes)
+                {
+                    findModel.SpecificQuery.MessageClientIdCriteria.RequestType = ClientCriteriaRequestType.ResponseByResponse;
+
+                    await FindAndConcatResult(findModel);
+                }
+
+                async Task FindAndConcatResult(FindModel findModel)
+                {
+                    var response = await _httpClient.ExecuteRequestToSmev<QueryResult>(EndpointAdapter.find, findModel) 
+                        ?? throw new NullDeserializeResultException();
+
+                    response.FoundMessages.ForEach(queryResult.FoundMessages.Add);
+                }
+            }
+
+            return queryResult;
+        }
+        #endregion
+
+        #region Get method
         /// <inheritdoc />
-        public async Task<string> Get(string data)
+        public async Task<QueryQueueMessage> Get(GetModel getModel)
         {
-            var result = await _httpClient.ExecuteRequestToSmev<string>(EndpointAdapter.get, data);
+            var result = await _httpClient.ExecuteRequestToSmev<QueryQueueMessage>(EndpointAdapter.get, getModel);
 
             return result;
         }
+        #endregion
 
+        #region Send method
         /// <inheritdoc />
-        public async Task<ResponseSentMessage> Send(object message)
+        public async Task<ResponseSentMessage> Send(SendResponseModel responseModel)
         {
-            if (message is not SendRequestModel or SendResponseModel)
-                throw new InvalidArgumentSendedMessageException();
-
-            var messageBody = message;
-
             if (_options.IsSingleIS)
-                messageBody = message.SetModelMnemonicIS(_options.MnemonicIS);
+                responseModel.MnemonicIS = _options.MnemonicIS;
 
-            var sentMessage = await _httpClient.ExecuteRequestToSmev<ResponseSentMessage>(EndpointAdapter.send, messageBody);
+            return await SendAsync(responseModel);
+        }
+
+        /// <inheritdoc/>
+        public async Task<ResponseSentMessage> Send(SendRequestModel requestModel)
+        {
+            if (_options.IsSingleIS)
+                requestModel.MnemonicIS = _options.MnemonicIS;
+
+            return await SendAsync(requestModel);
+        }
+
+        private async Task<ResponseSentMessage> SendAsync(object sendedModel)
+        {
+            var sentMessage = await _httpClient.ExecuteRequestToSmev<ResponseSentMessage>(EndpointAdapter.send, sendedModel);
 
             return sentMessage ?? throw new NullDeserializeResultException();
         }
+        #endregion
     }
 }

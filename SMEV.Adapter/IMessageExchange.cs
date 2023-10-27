@@ -1,5 +1,6 @@
 ﻿using SMEV.Adapter.Exceptions;
 using SMEV.Adapter.Models.Find;
+using SMEV.Adapter.Models.Get;
 using SMEV.Adapter.Models.Send;
 using SMEV.Adapter.Models.Send.Request;
 using SMEV.Adapter.Models.Send.Response;
@@ -12,25 +13,32 @@ namespace SMEV.Adapter
     public interface IMessageExchange : IDisposable
     {
         /// <summary>
-        /// Метод <c>Send</c> (отправка запросов и ответов)
+        /// Метод <c>Send</c> (отправка запроса)
         /// </summary>
-        /// <param name="message">
-        /// Передаваемая модель сообщения. 
-        /// Допустима отправка только <see cref="SendRequestModel"/> или <see cref="SendResponseModel"/></param>
+        /// <param name="requestModel">Модель отправляемого сообщения</param>
         /// <returns>Ответ адаптера на отправленное сообщение</returns>
-        /// <exception cref="InvalidArgumentSendedMessageException"></exception>
-        Task<ResponseSentMessage> Send(object message);
+        /// <exception cref="NullDeserializeResultException"></exception>
+        Task<ResponseSentMessage> Send(SendRequestModel requestModel);
+        /// <summary>
+        /// Метод <c>Send</c> (отправка ответа)
+        /// </summary>
+        /// <param name="responseModel">Модель отправляемого сообщения</param>
+        /// <returns>Ответ адаптера на отправленное сообщение</returns>
+        /// <exception cref="NullDeserializeResultException"></exception>
+        Task<ResponseSentMessage> Send(SendResponseModel responseModel);
         /// <summary>
         /// Метод <c>Get</c> (получение запроса и очереди)
         /// </summary>
-        /// <param name="data">Строка параметров для передаваемого контента в формате JSON</param>
-        /// <returns></returns>
-        Task<string> Get(string data);
+        /// <param name="getModel">Модель получения очереди сообщений</param>
+        /// <returns>Очередь сообщений</returns>
+        Task<QueryQueueMessage> Get(GetModel getModel);
         /// <summary>
         /// Метод <c>Find</c> (поиск запросов)
         /// </summary>
         /// <param name="findModel">Модель критериев поиска сообщений</param>
         /// <returns>Найденная очередь сообщений, удовлетворяющая критериям поиска</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="NullDeserializeResultException"></exception>
         Task<QueryResult> Find(FindModel findModel);
     }
 }
