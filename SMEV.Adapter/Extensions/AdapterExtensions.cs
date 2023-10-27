@@ -2,6 +2,7 @@
 using SMEV.Adapter.Enums;
 using SMEV.Adapter.Helpers;
 using SMEV.Adapter.Models.Find;
+using SMEV.Adapter.Models.Get;
 using SMEV.Adapter.Models.Send;
 using System.ComponentModel;
 
@@ -21,7 +22,7 @@ namespace SMEV.Adapter.Extensions
             {
                 EndpointAdapter.send => JsonHelper.DeserializeResponseSmev<ResponseSentMessage>(response),
                 EndpointAdapter.find => JsonHelper.DeserializeResponseSmev<QueryResult>(response),
-                EndpointAdapter.get => JsonHelper.DeserializeResponseSmev<string>(response),
+                EndpointAdapter.get => JsonHelper.DeserializeResponseSmev<QueryQueueMessage>(response),
                 _ => throw new InvalidEnumArgumentException(nameof(endpoint)),
             };
 
