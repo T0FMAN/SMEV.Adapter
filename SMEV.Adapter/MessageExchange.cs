@@ -6,7 +6,6 @@ using SMEV.Adapter.Models.Get;
 using SMEV.Adapter.Models.Send;
 using SMEV.Adapter.Models.Send.Request;
 using SMEV.Adapter.Models.Send.Response;
-using System.Runtime.CompilerServices;
 
 namespace SMEV.Adapter
 {
@@ -55,44 +54,62 @@ namespace SMEV.Adapter
         /// <inheritdoc />
         public async Task<QueryResult> Find(FindModel findModel)
         {
-            var queryResult = new QueryResult();
-
             if (_options.IsSingleIS)
                 findModel.MnemonicIS = _options.MnemonicIS;
 
             if (findModel.SpecificQuery.MessageClientIdCriteria is not null)
+                return await FindByMessageClientIdCriteria(findModel);
+            else if (findModel.SpecificQuery.MessagePeriodCriteria is not null)
+                return await FindByMessagePeriodCriteria(findModel);
+            else 
+                throw new ArgumentNullException
+                    ("Criterias MessageClientIdC and MessagePeriod");
+        }
+
+        private async Task<QueryResult> FindByMessageClientIdCriteria(FindModel findModel)
+        {
+            var queryResult = new QueryResult();
+
+            var messageClientId = findModel.SpecificQuery.MessageClientIdCriteria!;
+
+            var isReqByReq = messageClientId.IsReqByReq;
+            var isResbyReq = messageClientId.IsResByReq;
+            var isResByRes = messageClientId.IsResByRes;
+
+            if (isReqByReq)
             {
-                var isReqByReq = findModel.SpecificQuery.MessageClientIdCriteria.IsReqByReq;
-                var isResbyReq = findModel.SpecificQuery.MessageClientIdCriteria.IsResByReq;
-                var isResByRes = findModel.SpecificQuery.MessageClientIdCriteria.IsResByRes;
+                messageClientId.RequestType = ClientCriteriaRequestType.RequestByRequest;
 
-                if (isReqByReq)
-                {
-                    findModel.SpecificQuery.MessageClientIdCriteria.RequestType = ClientCriteriaRequestType.RequestByRequest;
-                    
-                    await FindAndConcatResult(findModel);
-                }
-                if (isResbyReq)
-                {
-                    findModel.SpecificQuery.MessageClientIdCriteria.RequestType = ClientCriteriaRequestType.ResponseByRequest;
-
-                    await FindAndConcatResult(findModel);
-                }
-                if (isResByRes)
-                {
-                    findModel.SpecificQuery.MessageClientIdCriteria.RequestType = ClientCriteriaRequestType.ResponseByResponse;
-
-                    await FindAndConcatResult(findModel);
-                }
-
-                async Task FindAndConcatResult(FindModel findModel)
-                {
-                    var response = await _httpClient.ExecuteRequestToSmev<QueryResult>(EndpointAdapter.find, findModel) 
-                        ?? throw new NullDeserializeResultException();
-
-                    response.FoundMessages.ForEach(queryResult.FoundMessages.Add);
-                }
+                await FindAndConcatResult(findModel);
             }
+            if (isResbyReq)
+            {
+                messageClientId.RequestType = ClientCriteriaRequestType.ResponseByRequest;
+
+                await FindAndConcatResult(findModel);
+            }
+            if (isResByRes)
+            {
+                messageClientId.RequestType = ClientCriteriaRequestType.ResponseByResponse;
+
+                await FindAndConcatResult(findModel);
+            }
+
+            async Task FindAndConcatResult(FindModel findModel)
+            {
+                var response = await _httpClient.ExecuteRequestToSmev<QueryResult>(EndpointAdapter.find, findModel)
+                    ?? throw new NullDeserializeResultException();
+
+                response.FoundMessages.ForEach(queryResult.FoundMessages.Add);
+            }
+
+            return queryResult;
+        }
+
+        private async Task<QueryResult> FindByMessagePeriodCriteria(FindModel findModel)
+        {
+            var queryResult = await _httpClient.ExecuteRequestToSmev<QueryResult>(EndpointAdapter.find, findModel)
+                ?? throw new NullDeserializeResultException();
 
             return queryResult;
         }
