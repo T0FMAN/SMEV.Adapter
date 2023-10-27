@@ -13,19 +13,20 @@ namespace SMEV.Adapter.Models.Find
         /// <summary>
         /// Инициализация очереди запроса сообщений по временному периоду
         /// </summary>
-        /// <param name="messagePeriod">Критерии временного диапазона, за который необходимо получить сообщения</param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
         /// <param name="countToReturn">Количество сообщений, удовлетворяющих критериям поиска, которое необходимо вернуть</param>
         /// <param name="offset">Размер смещения по списку сообщений или порядковый номер сообщения, с которого начнется отбор запросов</param>
-        public SpecificQuery(MessagePeriodCriteria messagePeriod, int? countToReturn = null, int? offset = null)
+        public SpecificQuery(DateTimeOffset fromDate, DateTimeOffset toDate, int? countToReturn = null, int? offset = null)
         {
-            MessagePeriodCriteria = messagePeriod;
+            MessagePeriodCriteria = new MessagePeriodCriteria(fromDate, toDate);
             MessageCountToReturn = countToReturn;
             MessageOffset = offset;
         }
 
         /// <summary>
         /// Инициализация очереди запроса сообщений по идентифкатору запроса.
-        /// По умолчанию в параметры 
+        /// По умолчанию в критерии типа сообщений стоят все true значения
         /// </summary>
         /// <param name="clientId">Критерии идентификатора запроса, по которому необходимо получить сообщения</param>
         /// <param name="isReqByReq"></param>

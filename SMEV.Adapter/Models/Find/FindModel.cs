@@ -31,24 +31,47 @@ namespace SMEV.Adapter.Models.Find
         /// <summary>
         /// Инициалиазция поиска сообщений по идентификатору сообщения
         /// </summary>
-        /// <param name="clientId"></param>
-        /// <param name="isReqByReq"></param>
-        /// <param name="isResByRes"></param>
-        /// <param name="isResByReq"></param>
+        /// <param name="clientId">Уникальный идентификатор</param>
+        /// <param name="isReqByReq">Включить в поиск сообщения сообщение-запрос на запрос</param>
+        /// <param name="isResByRes">Включить в поиск сообщения сообщение-ответ на ответ</param>
+        /// <param name="isResByReq">Включить в поиск сообщения сообщение-ответ на запрос</param>
         public FindModel(string clientId, bool isReqByReq = true, bool isResByRes = true, bool isResByReq = true):
             this(new SpecificQuery(clientId, isReqByReq, isResByRes, isResByReq))
         { }
 
         /// <summary>
-        /// Инициалиазция поиска сообщений по идентификатору сообщения от лица другой мнемоники
+        /// Инициалиазция поиска сообщений по идентификатору сообщения с отличной мнемоникой ИС (для систем с несколькими мнемониками)
         /// </summary>
-        /// <param name="mnemonicIS"></param>
-        /// <param name="clientId"></param>
-        /// <param name="isReqByReq"></param>
-        /// <param name="isResByRes"></param>
-        /// <param name="isResByReq"></param>
+        /// <param name="mnemonicIS">Мнемоника ИС</param>
+        /// <param name="clientId">Уникальный идентификатор</param>
+        /// <param name="isReqByReq">Включить в поиск сообщения сообщение-запрос на запрос</param>
+        /// <param name="isResByRes">Включить в поиск сообщения сообщение-ответ на ответ</param>
+        /// <param name="isResByReq">Включить в поиск сообщения сообщение-ответ на запрос</param>
         public FindModel(string mnemonicIS, string clientId, bool isReqByReq = true, bool isResByRes = true, bool isResByReq = true) :
             this(mnemonicIS, new SpecificQuery(clientId, isReqByReq, isResByRes, isResByReq))
+        { }
+
+        /// <summary>
+        /// Инициалиазция поиска сообщений по временному диапазону
+        /// </summary>
+        /// <param name="fromDate">Дата и время от которой нужно начать поиск</param>
+        /// <param name="toDate">Дата и время до которой нужно начать поиск</param>
+        /// <param name="countToReturn">Количество сообщений, которое нужно вернуть (необязательно)</param>
+        /// <param name="offset">Смещение сообщения (необязательно)</param>
+        public FindModel(DateTimeOffset fromDate, DateTimeOffset toDate, int? countToReturn = null, int? offset = null) :
+            this(new SpecificQuery(fromDate, toDate, countToReturn, offset))
+        { }
+
+        /// <summary>
+        /// Инициалиазция поиска сообщений по временному диапазону с отличной мнемоникой ИС (для систем с несколькими мнемониками)
+        /// </summary>
+        /// <param name="mnemonicIS">Мнемоника ИС</param>
+        /// <param name="fromDate">Дата и время от которой нужно начать поиск</param>
+        /// <param name="toDate">Дата и время до которой нужно начать поиск</param>
+        /// <param name="countToReturn">Количество сообщений, которое нужно вернуть (необязательно)</param>
+        /// <param name="offset">Смещение сообщения (необязательно)</param>
+        public FindModel(string mnemonicIS, DateTimeOffset fromDate, DateTimeOffset toDate, int? countToReturn = null, int? offset = null) :
+            this(mnemonicIS, new SpecificQuery(fromDate, toDate, countToReturn, offset))
         { }
 
         /// <summary>
