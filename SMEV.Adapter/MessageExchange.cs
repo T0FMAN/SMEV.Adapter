@@ -63,7 +63,7 @@ namespace SMEV.Adapter
                 return await FindByMessagePeriodCriteria(findModel);
             else 
                 throw new ArgumentNullException
-                    ("Criterias MessageClientIdC and MessagePeriod");
+                    ("Criterias MessageClientId and MessagePeriod");
         }
 
         private async Task<QueryResult> FindByMessageClientIdCriteria(FindModel findModel)

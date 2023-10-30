@@ -9,7 +9,7 @@ namespace SMEV.Adapter.Models.Find
     public sealed class MessageClientIdCriteria
     {
         /// <summary>
-        /// 
+        /// Текущий тип запроса для критерия поиска
         /// </summary>
         public ClientCriteriaRequestType RequestType { private get; set; }
 
@@ -26,12 +26,12 @@ namespace SMEV.Adapter.Models.Find
         }
 
         /// <summary>
-        /// 
+        /// Инициализация контейнера шаблона поиска сообщений по уникальному идентификатору
         /// </summary>
-        /// <param name="clientId"></param>
-        /// <param name="isReqByReq"></param>
-        /// <param name="isResByRes"></param>
-        /// <param name="isResByReq"></param>
+        /// <param name="clientId">Уникальный идентификатор</param>
+        /// <param name="isReqByReq">Включить получение сообщений запросов по клиентскому идентификатору запроса</param>
+        /// <param name="isResByRes">Включить получение сообщений ответов на запрос по клиентскому идентификатору ответа</param>
+        /// <param name="isResByReq">Включить получение сообщений ответов на запрос по клиентскому идентификатору запроса</param>
         public MessageClientIdCriteria(string clientId, bool isReqByReq, bool isResByRes, bool isResByReq)
         {
             ClientId = clientId;
