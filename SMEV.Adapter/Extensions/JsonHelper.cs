@@ -1,10 +1,10 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Helpers
+namespace SMEV.Adapter.Extensions
 {
-    internal static class JsonHelper
+    internal static class JsonExtensions
     {
-        internal static Model DeserializeResponseSmev<Model>(string data)
+        internal static Model DeserializeSmevResponse<Model>(this string data)
         {
             var model = JsonConvert.DeserializeObject<Model>(data);
 

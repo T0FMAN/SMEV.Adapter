@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using SMEV.Adapter.Enums;
-using SMEV.Adapter.Helpers;
 using SMEV.Adapter.Models.Find;
 using SMEV.Adapter.Models.Get;
 using SMEV.Adapter.Models.Send;
@@ -20,9 +19,9 @@ namespace SMEV.Adapter.Extensions
 
             object model = endpoint switch
             {
-                EndpointAdapter.send => JsonHelper.DeserializeResponseSmev<ResponseSentMessage>(response),
-                EndpointAdapter.find => JsonHelper.DeserializeResponseSmev<QueryResult>(response),
-                EndpointAdapter.get => JsonHelper.DeserializeResponseSmev<QueryQueueMessage>(response),
+                EndpointAdapter.send => response.DeserializeSmevResponse<ResponseSentMessage>(),
+                EndpointAdapter.find => response.DeserializeSmevResponse<QueryResult>(),
+                EndpointAdapter.get => response.DeserializeSmevResponse<QueryQueueMessage>(),
                 _ => throw new InvalidEnumArgumentException(nameof(endpoint)),
             };
 

@@ -13,7 +13,7 @@ namespace SMEV.Adapter.Models.Find
         /// </summary>
         /// <param name="mnemonicIS">Мнемоника ИС (код ИС в ИУА)</param>
         /// <param name="specificQuery">Контейнер c параметрами запроса сообщений</param>
-        public FindModel(string mnemonicIS, SpecificQuery specificQuery) 
+        private FindModel(string mnemonicIS, SpecificQuery specificQuery) 
         {
             MnemonicIS = mnemonicIS;
             SpecificQuery = specificQuery;
@@ -23,13 +23,13 @@ namespace SMEV.Adapter.Models.Find
         /// Инициализация модели <c>Find</c>
         /// </summary>
         /// <param name="specificQuery">Контейнер c параметрами запроса сообщений</param>
-        public FindModel(SpecificQuery specificQuery) 
+        private FindModel(SpecificQuery specificQuery) 
         {
             SpecificQuery = specificQuery;
         }
 
         /// <summary>
-        /// Инициалиазция поиска сообщений по идентификатору сообщения
+        /// Инициализация поиска сообщений по идентификатору сообщения
         /// </summary>
         /// <param name="clientId">Уникальный идентификатор</param>
         /// <param name="isReqByReq">Включить в поиск сообщения сообщение-запрос на запрос</param>
@@ -40,7 +40,7 @@ namespace SMEV.Adapter.Models.Find
         { }
 
         /// <summary>
-        /// Инициалиазция поиска сообщений по идентификатору сообщения с отличной мнемоникой ИС (для систем с несколькими мнемониками)
+        /// Инициализация поиска сообщений по идентификатору сообщения с отличной мнемоникой ИС (для систем с несколькими мнемониками)
         /// </summary>
         /// <param name="mnemonicIS">Мнемоника ИС</param>
         /// <param name="clientId">Уникальный идентификатор</param>
@@ -52,7 +52,7 @@ namespace SMEV.Adapter.Models.Find
         { }
 
         /// <summary>
-        /// Инициалиазция поиска сообщений по временному диапазону
+        /// Инициализация поиска сообщений по временному диапазону
         /// </summary>
         /// <param name="fromDate">Дата и время от которой нужно начать поиск</param>
         /// <param name="toDate">Дата и время до которой нужно начать поиск</param>
@@ -63,7 +63,7 @@ namespace SMEV.Adapter.Models.Find
         { }
 
         /// <summary>
-        /// Инициалиазция поиска сообщений по временному диапазону с отличной мнемоникой ИС (для систем с несколькими мнемониками)
+        /// Инициализация поиска сообщений по временному диапазону с отличной мнемоникой ИС (для систем с несколькими мнемониками)
         /// </summary>
         /// <param name="mnemonicIS">Мнемоника ИС</param>
         /// <param name="fromDate">Дата и время от которой нужно начать поиск</param>
