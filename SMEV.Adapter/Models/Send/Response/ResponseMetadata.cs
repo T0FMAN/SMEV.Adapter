@@ -12,7 +12,8 @@ namespace SMEV.Adapter.Models.Send.Response
         /// </summary>
         /// <param name="clientId">Уникальный идентификатор</param>
         /// <param name="replyToClientId">Уникальный идентификатор сообщения, на который ссылается сообщение</param>
-        public ResponseMetadata(string clientId, string replyToClientId)
+        /// <param name="testMessage">Тестовое сообщение</param>
+        public ResponseMetadata(string clientId, string replyToClientId, bool testMessage = false)
         {
             ClientId = clientId;
             ReplyToClientId = replyToClientId;

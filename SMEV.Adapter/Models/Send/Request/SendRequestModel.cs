@@ -14,7 +14,7 @@ namespace SMEV.Adapter.Models.Send.Request
         /// </summary>
         /// <param name="mnemonicIS">Мнемоника ИС, от лица которой будет отправлено сообщение</param>
         /// <param name="message">Сообщение-запрос</param>
-        public SendRequestModel(string mnemonicIS, RequestMessage message)
+        private SendRequestModel(string mnemonicIS, RequestMessage message)
         {
             MnemonicIS = mnemonicIS;
             Message = message;
@@ -24,7 +24,7 @@ namespace SMEV.Adapter.Models.Send.Request
         /// Инициализация отправляемого сообщения
         /// </summary>
         /// <param name="message">Сообщение-запрос</param>
-        public SendRequestModel(RequestMessage message)
+        private SendRequestModel(RequestMessage message)
         {
             Message = message;
         }
@@ -43,6 +43,20 @@ namespace SMEV.Adapter.Models.Send.Request
         { }
 
         /// <summary>
+        /// Инициализация отправляемого сообщения
+        /// </summary>
+        /// <param name="mnemonicIS">Мнемоника ИС, от лица которой будет отправлено сообщение</param>
+        /// <param name="clientId">Уникальный идентификатор</param>
+        /// <param name="message">Данные сообщения</param>
+        /// <param name="testMessage">Тестовое сообщение</param>
+        public SendRequestModel(string mnemonicIS, string clientId, string message, bool testMessage = false) :
+            this(mnemonicIS, new RequestMessage(
+                new RequestMetadata(clientId, testMessage),
+                new ContentModel(new Content(
+                    new MessagePrimaryContent(message)))))
+        { }
+
+        /// <summary>
         /// Мнемоника ИС
         /// </summary>
         [JsonProperty("itSystem")]
@@ -51,6 +65,6 @@ namespace SMEV.Adapter.Models.Send.Request
         /// Сообщение-запрос
         /// </summary>
         [JsonProperty("requestMessage")]
-        public RequestMessage Message { get; set; } = default!;
+        public RequestMessage Message { get; private set; } = default!;
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using SMEV.Adapter.Models.MessageContent;
+using SMEV.Adapter.Models.Send.Request;
 
 namespace SMEV.Adapter.Models.Send.Response
 {
@@ -13,7 +15,7 @@ namespace SMEV.Adapter.Models.Send.Response
         /// </summary>
         /// <param name="mnemonicIS">Мнемоника ИС, от лица которой будет отправлено сообщение</param>
         /// <param name="message">Сообщение-ответ</param>
-        public SendResponseModel(string mnemonicIS, ResponseMessage message) 
+        private SendResponseModel(string mnemonicIS, ResponseMessage message) 
         {
             MnemonicIS = mnemonicIS;
             Message = message;
@@ -23,10 +25,38 @@ namespace SMEV.Adapter.Models.Send.Response
         /// Инициализация отправляемого сообщения
         /// </summary>
         /// <param name="message">Сообщение-ответ</param>
-        public SendResponseModel(ResponseMessage message) 
+        private SendResponseModel(ResponseMessage message) 
         {
             Message = message;
         }
+
+        /// <summary>
+        /// Инициализация отправляемого сообщения
+        /// </summary>
+        /// <param name="clientId">Уникальный идентификатор</param>
+        /// <param name="message">Данные сообщения</param>
+        /// <param name="testMessage">Тестовое сообщение</param>
+        public SendResponseModel(string clientId, string message, bool testMessage = false) :
+            this(new ResponseMessage(
+                new ResponseMetadata(clientId, clientId, testMessage),
+                new ContentModel(new Content(
+                    new MessagePrimaryContent(message)))))
+        { }
+
+        /// <summary>
+        /// Инициализация отправляемого сообщения с мнемоникой ИС, 
+        /// отличной от стандартной, указанной при инициализации <see cref="MessageExchange"/>
+        /// </summary>
+        /// <param name="mnemonicIS">Мнемоника ИС, от лица которой будет отправлено сообщение</param>
+        /// <param name="clientId">Уникальный идентификатор</param>
+        /// <param name="message">Данные сообщения</param>
+        /// <param name="testMessage">Тестовое сообщение</param>
+        public SendResponseModel(string mnemonicIS, string clientId, string message, bool testMessage = false) :
+            this(mnemonicIS, new ResponseMessage(
+                new ResponseMetadata(clientId, clientId, testMessage),
+                new ContentModel(new Content(
+                    new MessagePrimaryContent(message)))))
+        { }
 
         /// <summary>
         /// Мнемоника ИС
@@ -37,6 +67,6 @@ namespace SMEV.Adapter.Models.Send.Response
         /// Сообщение-запрос
         /// </summary>
         [JsonProperty("responseMessage")]
-        public ResponseMessage Message { get; set; } = default!;
+        public ResponseMessage Message { get; private set; } = default!;
     }
 }
