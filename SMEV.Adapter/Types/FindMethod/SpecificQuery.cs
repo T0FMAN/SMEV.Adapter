@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using SMEV.Adapter.Enums;
+using SMEV.Adapter.Types.Enums;
 
-namespace SMEV.Adapter.Models.Find
+namespace SMEV.Adapter.Types.FindMethod
 {
     /// <summary>
     /// Класс контейнера, который включает варианты запроса сообщений.

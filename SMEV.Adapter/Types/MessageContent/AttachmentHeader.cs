@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Models.MessageContent
+namespace SMEV.Adapter.Types.MessageContent
 {
     /// <summary>
     /// Репрезентация головного элемента вложения

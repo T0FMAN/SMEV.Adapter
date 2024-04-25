@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using SMEV.Adapter.Enums;
+using SMEV.Adapter.Types.Enums;
 
-namespace SMEV.Adapter.Models.Find
+namespace SMEV.Adapter.Types.FindMethod
 {
     /// <summary>
     /// Контейнер для шаблона поиска запросов по идентификатору запроса
@@ -49,13 +49,13 @@ namespace SMEV.Adapter.Models.Find
         /// Тип запроса
         /// </summary>
         [JsonProperty("clientIdCriteria")]
-        public string ClientIdCriteria 
-        { 
-            get 
+        public string ClientIdCriteria
+        {
+            get
             {
                 RequestTypeDictionary.TryGetValue(RequestType, out var value);
 
-                return value!; 
+                return value!;
             }
         }
         /// <summary>

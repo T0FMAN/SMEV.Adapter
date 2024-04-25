@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Models.Find
+namespace SMEV.Adapter.Types.FindMethod
 {
     /// <summary>
     /// Модель метода <c>Find</c>
@@ -9,11 +9,11 @@ namespace SMEV.Adapter.Models.Find
     {
         /// <summary>
         /// Инициализация модели <c>Find</c> с другой мнемоникой, 
-        /// отличной от указанной в параметрах при инициализации экземпляра <see cref="MessageExchange"/>
+        /// отличной от указанной в параметрах при инициализации экземпляра <see cref="SmevClient"/>
         /// </summary>
         /// <param name="mnemonicIS">Мнемоника ИС (код ИС в ИУА)</param>
         /// <param name="specificQuery">Контейнер c параметрами запроса сообщений</param>
-        private FindModel(string mnemonicIS, SpecificQuery specificQuery) 
+        private FindModel(string mnemonicIS, SpecificQuery specificQuery)
         {
             MnemonicIS = mnemonicIS;
             SpecificQuery = specificQuery;
@@ -23,7 +23,7 @@ namespace SMEV.Adapter.Models.Find
         /// Инициализация модели <c>Find</c>
         /// </summary>
         /// <param name="specificQuery">Контейнер c параметрами запроса сообщений</param>
-        private FindModel(SpecificQuery specificQuery) 
+        private FindModel(SpecificQuery specificQuery)
         {
             SpecificQuery = specificQuery;
         }
@@ -35,7 +35,7 @@ namespace SMEV.Adapter.Models.Find
         /// <param name="isReqByReq">Включить в поиск сообщения сообщение-запрос на запрос</param>
         /// <param name="isResByRes">Включить в поиск сообщения сообщение-ответ на ответ</param>
         /// <param name="isResByReq">Включить в поиск сообщения сообщение-ответ на запрос</param>
-        public FindModel(string clientId, bool isReqByReq = true, bool isResByRes = true, bool isResByReq = true):
+        public FindModel(string clientId, bool isReqByReq = true, bool isResByRes = true, bool isResByReq = true) :
             this(new SpecificQuery(clientId, isReqByReq, isResByRes, isResByReq))
         { }
 

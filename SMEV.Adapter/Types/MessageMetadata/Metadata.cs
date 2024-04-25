@@ -1,4 +1,4 @@
-﻿namespace SMEV.Adapter.Models.MessageMetadata
+﻿namespace SMEV.Adapter.Types.MessageMetadata
 {
     /// <summary>
     /// Репрезентация блока метаданных сообщения

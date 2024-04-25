@@ -1,4 +1,4 @@
-﻿namespace SMEV.Adapter.Models.Get
+﻿namespace SMEV.Adapter.Types.GetMethod
 {
     public class QueryQueueMessage
     {

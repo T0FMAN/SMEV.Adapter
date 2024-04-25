@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using SMEV.Adapter.Enums;
-using SMEV.Adapter.Models.MessageContent;
-using SMEV.Adapter.Models.MessageMetadata;
+using SMEV.Adapter.Types.Enums;
+using SMEV.Adapter.Types.MessageContent;
+using SMEV.Adapter.Types.MessageMetadata;
 
-namespace SMEV.Adapter.Models.Find
+namespace SMEV.Adapter.Types.FindMethod
 {
     /// <summary>
     /// Репрезентация блока 'message' найденного сообщения

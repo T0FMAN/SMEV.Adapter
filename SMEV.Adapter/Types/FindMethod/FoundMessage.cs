@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Models.Find
+namespace SMEV.Adapter.Types.FindMethod
 {
     /// <summary>
     /// Репрезентация найденного сообщения

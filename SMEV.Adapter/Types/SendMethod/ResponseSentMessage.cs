@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Models.Send
+namespace SMEV.Adapter.Types.SendMethod
 {
     /// <summary>
     /// Класс для десериализации ответа от адаптера по методу <c>Send</c>

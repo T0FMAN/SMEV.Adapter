@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using SMEV.Adapter.Enums;
-using SMEV.Adapter.Models.MessageContent;
+using SMEV.Adapter.Types.Enums;
+using SMEV.Adapter.Types.MessageContent;
 
-namespace SMEV.Adapter.Models.Send.Response
+namespace SMEV.Adapter.Types.SendMethod.Response
 {
     /// <summary>
     /// Репрезентация тела сообщения-ответа
@@ -16,8 +16,8 @@ namespace SMEV.Adapter.Models.Send.Response
         /// </summary>
         /// <param name="metadata"></param>
         /// <param name="content"></param>
-        public ResponseMessage(ResponseMetadata metadata, ContentModel content) 
-        { 
+        public ResponseMessage(ResponseMetadata metadata, ContentModel content)
+        {
             Metadata = metadata;
             Content = content;
         }

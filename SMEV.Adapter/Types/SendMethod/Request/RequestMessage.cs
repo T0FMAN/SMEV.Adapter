@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
-using SMEV.Adapter.Enums;
-using SMEV.Adapter.Models.MessageContent;
+using SMEV.Adapter.Types.Enums;
+using SMEV.Adapter.Types.MessageContent;
 
-namespace SMEV.Adapter.Models.Send.Request
+namespace SMEV.Adapter.Types.SendMethod.Request
 {
     /// <summary>
     /// Репрезентация тела сообщения-запроса
@@ -26,8 +26,8 @@ namespace SMEV.Adapter.Models.Send.Request
         /// Тип сообщения
         /// </summary>
         [JsonProperty("messageType")]
-        public string MessageType 
-        { 
+        public string MessageType
+        {
             get { return _messageType.ToString(); }
         }
         /// <summary>

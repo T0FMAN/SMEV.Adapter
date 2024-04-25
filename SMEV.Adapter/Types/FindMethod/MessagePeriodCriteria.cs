@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Models.Find
+namespace SMEV.Adapter.Types.FindMethod
 {
     /// <summary>
     /// Класс для контейнера временного диапазона, за который необходимо получить сообщения
@@ -27,8 +27,8 @@ namespace SMEV.Adapter.Models.Find
         /// Метка времени, от которой искать сообщения
         /// </summary>
         [JsonProperty("from")]
-        public string FromDate 
-        { 
+        public string FromDate
+        {
             get { return _from.ToString(mask); }
         }
         /// <summary>

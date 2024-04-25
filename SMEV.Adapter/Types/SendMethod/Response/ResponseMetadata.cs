@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Models.Send.Response
+namespace SMEV.Adapter.Types.SendMethod.Response
 {
     /// <summary>
     /// Репрезентация метаданных сообщения-ответа

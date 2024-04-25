@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Models.MessageContent
+namespace SMEV.Adapter.Types.MessageContent
 {
     /// <summary>
     /// Класс представления контента сообщения
@@ -26,7 +26,7 @@ namespace SMEV.Adapter.Models.MessageContent
         /// <summary>
         /// Контейнер с информацией о вложениях (необязательный параметр)
         /// </summary>
-        [JsonProperty("attachmentHeaderList")]
+        [JsonProperty("attachmentHeaderList", NullValueHandling = NullValueHandling.Ignore)]
         public AttachmentHeaderList? AttachmentHeaderList { get; set; }
     }
 }

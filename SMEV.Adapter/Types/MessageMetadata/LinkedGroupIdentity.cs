@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Models.MessageMetadata
+namespace SMEV.Adapter.Types.MessageMetadata
 {
     /// <summary>
     /// Реперзентация ссылочной группы, по которой проходит идентификация
