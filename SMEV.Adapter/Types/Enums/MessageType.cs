@@ -12,6 +12,10 @@
         /// <summary>
         /// Тип сообщения - ответ
         /// </summary>
-        ResponseMessageType
+        ResponseMessageType,
+        /// <summary>
+        /// Индикация об сообщении с ошибкой - используется только для десериализации!
+        /// </summary>
+        ErrorMessage
     }
 }
