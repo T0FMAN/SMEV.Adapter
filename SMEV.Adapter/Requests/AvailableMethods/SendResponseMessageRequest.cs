@@ -8,17 +8,11 @@ using System.Diagnostics.CodeAnalysis;
 namespace SMEV.Adapter.Requests.AvailableMethods
 {
     /// <summary>
-    ///  Используйте этот метод для отправки ответа к адаптеру. В случае успеха возвращается <see cref="ResponseSentMessage"/>
+    ///  Используйте этот метод для отправки сообщения с ответом к СМЭВ. В случае успеха возвращается <see cref="ResponseSentMessage"/>
     /// </summary>
     [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public class SendResponseMessageRequest : RequestBase<ResponseSentMessage>
     {
-        /// <summary>
-        /// Мнемоника ИС
-        /// </summary>
-        [JsonProperty("itSystem")]
-        public string MnemonicIS { get; init; }
-
         /// <summary>
         /// Отправляемый ответ
         /// </summary>
@@ -36,9 +30,8 @@ namespace SMEV.Adapter.Requests.AvailableMethods
             string messageContent,
             AttachmentHeaderList? attachmentHeaderList = null,
             bool testMessage = false)
-            : this()
+            : this(mnemonicIS)
         {
-            MnemonicIS = mnemonicIS;
             ResponseMessage = new ResponseMessage(
                 metadata: new ResponseMetadata(clientId, replyToClientId, testMessage),
                 content: new ContentModel(
@@ -50,8 +43,8 @@ namespace SMEV.Adapter.Requests.AvailableMethods
         /// <summary>
         /// Инициализация нового запроса
         /// </summary>
-        public SendResponseMessageRequest()
-            : base("send")
+        private SendResponseMessageRequest(string mnemonicIS)
+            : base("send", mnemonicIS)
         { }
     }
 }

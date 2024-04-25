@@ -12,6 +12,10 @@ namespace SMEV.Adapter.Requests
     [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public abstract class RequestBase<TResponse> : IRequest<TResponse>
     {
+        /// <inheritdoc/>
+        [JsonProperty("itSystem")]
+        public string MnemonicIS { get; }
+
         /// <inheritdoc />
         [JsonIgnore]
         public HttpMethod Method { get; }
@@ -24,17 +28,22 @@ namespace SMEV.Adapter.Requests
         /// Initializes an instance of request
         /// </summary>
         /// <param name="methodName">API method</param>
-        protected RequestBase(string methodName)
-            : this(methodName, HttpMethod.Post)
+        /// <param name="mnemonicIS">Мнемоника ИС</param>
+        protected RequestBase(string methodName, string mnemonicIS)
+            : this(methodName, mnemonicIS, HttpMethod.Post)
         { }
 
         /// <summary>
         /// Initializes an instance of request
         /// </summary>
         /// <param name="methodName">API method</param>
+        /// <param name="mnemonicIS">Мнемоника ИС</param>
         /// <param name="method">HTTP method to use</param>
-        protected RequestBase(string methodName, HttpMethod method) =>
-            (MethodName, Method) = (methodName, method);
+        protected RequestBase(
+            string methodName, 
+            string mnemonicIS, 
+            HttpMethod method) =>
+            (MethodName, Method, MnemonicIS) = (methodName, method, mnemonicIS);
 
         /// <summary>
         /// Generate content of HTTP message

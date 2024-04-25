@@ -1,10 +1,18 @@
-﻿namespace SMEV.Adapter.Requests.Abstractions
+﻿using Newtonsoft.Json;
+
+namespace SMEV.Adapter.Requests.Abstractions
 {
     /// <summary>
     /// Represents a request to API
     /// </summary>
     public interface IRequest
     {
+        /// <summary>
+        /// Мнемоника ИС
+        /// </summary>
+        [JsonProperty("itSystem")]
+        public string MnemonicIS { get; }
+
         /// <summary>
         /// HTTP method of request
         /// </summary>
