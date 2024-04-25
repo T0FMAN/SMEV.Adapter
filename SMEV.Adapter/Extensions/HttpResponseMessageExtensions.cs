@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json;
-using SMEV.Adapter.Exceptions;
+﻿using SMEV.Adapter.Exceptions;
 using System.Runtime.CompilerServices;
-using System.Text.Json.Serialization;
 
 namespace SMEV.Adapter.Extensions
 {
