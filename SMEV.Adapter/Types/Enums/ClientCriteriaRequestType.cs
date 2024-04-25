@@ -1,4 +1,4 @@
-﻿namespace SMEV.Adapter.Enums
+﻿namespace SMEV.Adapter.Types.Enums
 {
     /// <summary>
     /// Перечисление для критерия клиента - тип сообщения, по которому производится поиск других сообщений
