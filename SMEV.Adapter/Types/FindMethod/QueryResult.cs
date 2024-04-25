@@ -11,6 +11,6 @@ namespace SMEV.Adapter.Types.FindMethod
         /// Список найденных сообщений из очереди
         /// </summary>
         [JsonProperty("queryResult")]
-        public List<FoundMessage> FoundMessages { get; set; } = new List<FoundMessage>();
+        public List<FoundMessage> FoundMessages { get; set; } = [];
     }
 }

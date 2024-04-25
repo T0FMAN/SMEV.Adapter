@@ -8,14 +8,14 @@ namespace SMEV.Adapter.Types.FindMethod
     public sealed class FoundMessage
     {
         /// <summary>
-        /// Метадата данных СМЭВ
+        /// Метаданные сообщения
         /// </summary>
         [JsonProperty("smevMetadata")]
-        public SmevMetadata SmevMetadata { get; set; }
+        public SmevMetadata SmevMetadata { get; set; } = default!;
         /// <summary>
-        /// Данные сообщения
+        /// Тело сообщения
         /// </summary>
         [JsonProperty("message")]
-        public FoundMessageBody Message { get; set; }
+        public FoundMessageBody Message { get; set; } = default!;
     }
 }

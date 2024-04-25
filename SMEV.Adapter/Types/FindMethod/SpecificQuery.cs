@@ -9,6 +9,7 @@ namespace SMEV.Adapter.Types.FindMethod
     /// <seealso cref="MessagePeriodCriteria">по периоду времени</seealso> и 
     /// <seealso cref="MessageClientIdCriteria">по идентификатору запроса</seealso>
     /// </summary>
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
     public sealed class SpecificQuery
     {
         /// <summary>
@@ -31,12 +32,10 @@ namespace SMEV.Adapter.Types.FindMethod
         /// включение в поиск сообщений ответов и запросов по всем типам из <see cref="ClientCriteriaRequestType"/>)
         /// </summary>
         /// <param name="clientId">Критерии идентификатора запроса, по которому необходимо получить сообщения</param>
-        /// <param name="isReqByReq">Включить получение сообщений запросов по клиентскому идентификатору запроса</param>
-        /// <param name="isResByRes">Включить получение сообщений ответов на запрос по клиентскому идентификатору ответа</param>
-        /// <param name="isResByReq">Включить получение сообщений ответов на запрос по клиентскому идентификатору запроса</param>
-        public SpecificQuery(string clientId, bool isReqByReq, bool isResByRes, bool isResByReq)
+        /// <param name="requestType">Тип критерия запроса</param>
+        public SpecificQuery(string clientId, ClientCriteriaRequestType requestType)
         {
-            MessageClientIdCriteria = new MessageClientIdCriteria(clientId, isResByReq, isResByRes, isReqByReq);
+            MessageClientIdCriteria = new MessageClientIdCriteria(clientId, requestType);
         }
 
         /// <summary>
