@@ -18,20 +18,20 @@ namespace SMEV.Adapter
         /// <returns></returns>
         public static async Task<ResponseSentMessage> SendRequestMessageAsync(
             this ISmevClient client,
-            string mnemonicIS,
             string clientId,
             string messageContent,
             AttachmentHeaderList? attachmentHeaderList = null,
             bool testMessage = false,
+            string? mnemonicIS = default,
             CancellationToken cancellationToken = default) =>
             await client.ThrowIfNull()
             .MakeRequestAsync(
                 new SendRequestMessageRequest(
-                    mnemonicIS,
                     clientId,
                     messageContent,
                     attachmentHeaderList,
-                    testMessage),
+                    testMessage,
+                    mnemonicIS),
                 cancellationToken)
             .ConfigureAwait(false);
 
@@ -41,22 +41,22 @@ namespace SMEV.Adapter
         /// <returns></returns>
         public static async Task<ResponseSentMessage> SendResponseMessageAsync(
             this ISmevClient client,
-            string mnemonicIS,
             string clientId,
             string replyToClientId,
             string messageContent,
             AttachmentHeaderList? attachmentHeaderList = null,
             bool testMessage = false,
+            string? mnemonicIS = default,
             CancellationToken cancellationToken = default) =>
             await client.ThrowIfNull()
             .MakeRequestAsync(
                 new SendResponseMessageRequest(
-                    mnemonicIS,
                     clientId,
                     replyToClientId,
                     messageContent,
                     attachmentHeaderList,
-                    testMessage),
+                    testMessage,
+                    mnemonicIS),
                 cancellationToken)
             .ConfigureAwait(false);
 
@@ -71,16 +71,16 @@ namespace SMEV.Adapter
         /// <returns></returns>
         public static async Task<QueryResult> FindMessagesByClientIdAsync(
             this ISmevClient client,
-            string mnemonicIS,
             string clientId,
             ClientCriteriaRequestType requestType,
+            string? mnemonicIS = default,
             CancellationToken cancellationToken = default) =>
             await client.ThrowIfNull()
             .MakeRequestAsync(
                 new FindMessagesRequest(
-                    mnemonicIS,
                     clientId,
-                    requestType),
+                    requestType,
+                    mnemonicIS),
                 cancellationToken)
             .ConfigureAwait(false);
 
@@ -97,20 +97,20 @@ namespace SMEV.Adapter
         /// <returns></returns>
         public static async Task<QueryResult> FindMessagesByTimeRangeAsync(
             this ISmevClient client,
-            string mnemonicIS,
             DateTime fromDate,
             DateTime toDate,
             int? countToReturn = null,
             int? offset = null,
+            string? mnemonicIS = default,
             CancellationToken cancellationToken = default) =>
             await client.ThrowIfNull()
             .MakeRequestAsync(
                 new FindMessagesRequest(
-                    mnemonicIS,
                     fromDate,
                     toDate,
                     countToReturn,
-                    offset),
+                    offset,
+                    mnemonicIS),
                 cancellationToken)
             .ConfigureAwait(false);
 
@@ -123,7 +123,7 @@ namespace SMEV.Adapter
         /// <returns></returns>
         public static async Task<FoundMessage> GetMessageFromQueue(
             this ISmevClient client,
-            string mnemonicIS,
+            string? mnemonicIS = default,
             CancellationToken cancellationToken = default) =>
             await client.ThrowIfNull()
             .MakeRequestAsync(
