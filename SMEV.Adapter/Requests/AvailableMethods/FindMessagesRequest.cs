@@ -13,7 +13,7 @@ namespace SMEV.Adapter.Requests.AvailableMethods
         /// Контейнер вариантов запроса сообщений
         /// </summary>
         [JsonProperty("specificQuery")]
-        public SpecificQuery SpecificQuery { get; set; }
+        public SpecificQuery SpecificQuery { get; set; } = default!;
 
         /// <summary>
         /// Инициализация поиска сообщений по идентификатору сообщения
@@ -22,10 +22,10 @@ namespace SMEV.Adapter.Requests.AvailableMethods
         /// <param name="clientId">Уникальный идентификатор</param>
         /// <param name="requestType">Тип критерия поиска по клиенту</param>
         public FindMessagesRequest(
-            string mnemonicIS, 
             string clientId,
-            ClientCriteriaRequestType requestType)
-            : this(mnemonicIS, new SpecificQuery(clientId, requestType))
+            ClientCriteriaRequestType requestType,
+            string? mnemonicIS = default)
+            : this(new SpecificQuery(clientId, requestType), mnemonicIS)
         { }
 
         /// <summary>
@@ -37,29 +37,29 @@ namespace SMEV.Adapter.Requests.AvailableMethods
         /// <param name="countToReturn">Количество сообщений, которое нужно вернуть (необязательно)</param>
         /// <param name="offset">Смещение сообщения (необязательно)</param>
         public FindMessagesRequest(
-            string mnemonicIS, 
             DateTimeOffset fromDate, 
             DateTimeOffset toDate, 
             int? countToReturn = null, 
-            int? offset = null) 
+            int? offset = null,
+            string? mnemonicIS = default) 
             : this(
-                  mnemonicIS, 
                   new SpecificQuery(
                       fromDate, 
                       toDate, 
                       countToReturn,
-                      offset))
+                      offset),
+                  mnemonicIS)
         { }
 
         private FindMessagesRequest(
-            string mnemonicIS,
-            SpecificQuery specificQuery)
+            SpecificQuery specificQuery,
+            string? mnemonicIS = default)
             : this(mnemonicIS)
         {
             SpecificQuery = specificQuery;
         }
 
-        private FindMessagesRequest(string mnemonicIS)
+        private FindMessagesRequest(string? mnemonicIS = default)
             : base("find", mnemonicIS)
         { }
     }

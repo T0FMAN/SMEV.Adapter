@@ -13,7 +13,7 @@ namespace SMEV.Adapter.Requests.AvailableMethods
         /// <summary>
         /// Инициализация нового запроса получения очереди и запроса
         /// </summary>
-        public GetMessageQueueRequest(string mnemonicIS)
+        public GetMessageQueueRequest(string? mnemonicIS = default)
             : base("get", mnemonicIS)
         { }
     }

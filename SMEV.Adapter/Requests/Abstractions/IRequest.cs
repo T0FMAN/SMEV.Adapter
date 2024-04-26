@@ -11,7 +11,7 @@ namespace SMEV.Adapter.Requests.Abstractions
         /// Мнемоника ИС
         /// </summary>
         [JsonProperty("itSystem")]
-        public string MnemonicIS { get; }
+        public string? MnemonicIS { get; set; }
 
         /// <summary>
         /// HTTP method of request

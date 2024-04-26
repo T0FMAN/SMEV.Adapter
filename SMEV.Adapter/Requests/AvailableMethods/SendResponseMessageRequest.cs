@@ -17,19 +17,19 @@ namespace SMEV.Adapter.Requests.AvailableMethods
         /// Отправляемый ответ
         /// </summary>
         [JsonProperty("responseMessage")]
-        public ResponseMessage ResponseMessage { get; init; }
+        public ResponseMessage ResponseMessage { get; init; } = default!;
 
         /// <summary>
         /// Инициализация нового ответа с метаданными и контентом
         /// </summary>
         [SetsRequiredMembers]
         public SendResponseMessageRequest(
-            string mnemonicIS,
             string clientId,
             string replyToClientId,
             string messageContent,
             AttachmentHeaderList? attachmentHeaderList = null,
-            bool testMessage = false)
+            bool testMessage = false,
+            string? mnemonicIS = default)
             : this(mnemonicIS)
         {
             ResponseMessage = new ResponseMessage(
@@ -43,7 +43,7 @@ namespace SMEV.Adapter.Requests.AvailableMethods
         /// <summary>
         /// Инициализация нового запроса
         /// </summary>
-        private SendResponseMessageRequest(string mnemonicIS)
+        private SendResponseMessageRequest(string? mnemonicIS = default)
             : base("send", mnemonicIS)
         { }
     }

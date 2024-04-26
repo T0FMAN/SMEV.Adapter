@@ -13,8 +13,8 @@ namespace SMEV.Adapter.Requests
     public abstract class RequestBase<TResponse> : IRequest<TResponse>
     {
         /// <inheritdoc/>
-        [JsonProperty("itSystem")]
-        public string MnemonicIS { get; }
+        [JsonProperty("itSystem")] 
+        public string? MnemonicIS { get; set; }
 
         /// <inheritdoc />
         [JsonIgnore]
@@ -29,7 +29,7 @@ namespace SMEV.Adapter.Requests
         /// </summary>
         /// <param name="methodName">API method</param>
         /// <param name="mnemonicIS">Мнемоника ИС</param>
-        protected RequestBase(string methodName, string mnemonicIS)
+        protected RequestBase(string methodName, string? mnemonicIS = default)
             : this(methodName, mnemonicIS, HttpMethod.Post)
         { }
 
@@ -41,7 +41,7 @@ namespace SMEV.Adapter.Requests
         /// <param name="method">HTTP method to use</param>
         protected RequestBase(
             string methodName, 
-            string mnemonicIS, 
+            string? mnemonicIS, 
             HttpMethod method) =>
             (MethodName, Method, MnemonicIS) = (methodName, method, mnemonicIS);
 
