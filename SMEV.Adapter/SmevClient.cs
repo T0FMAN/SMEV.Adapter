@@ -52,6 +52,11 @@ namespace SMEV.Adapter
             IRequest<TResponse> request,
             CancellationToken cancellationToken = default)
         {
+            if (_options.IsSingleIS)
+                request.MnemonicIS = _options.MnemonicIS;
+            else
+                request.MnemonicIS.ThrowIfNull();
+
             ArgumentNullException.ThrowIfNull(request);
 
             var url = $"{_options.BaseAddress}/{request.MethodName}";
