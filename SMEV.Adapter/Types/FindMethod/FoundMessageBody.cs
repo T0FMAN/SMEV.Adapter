@@ -50,14 +50,22 @@ namespace SMEV.Adapter.Types.FindMethod
         /// <summary>
         /// Метаданные сообщения
         /// </summary>
-        public Metadata Metadata { get; set; }
+        public Metadata Metadata { get; set; } = default!;
         /// <summary>
         /// Контент сообщения
         /// </summary>
-        public ContentModel Content { get; set; }
+        public ContentModel Content { get; set; } = default!;
         /// <summary>
         /// Ошибки в случае отклонения сообщения адаптером
         /// </summary>
         public List<Status>? Rejects { get; set; }
+        /// <summary>
+        /// Статус сообщения 
+        /// </summary>
+        public string? Status { get; set; }
+        /// <summary>
+        /// Детали сообщения
+        /// </summary>
+        public string? Details { get; set; }
     }
 }

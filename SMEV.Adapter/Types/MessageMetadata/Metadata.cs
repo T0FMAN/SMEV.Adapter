@@ -25,5 +25,9 @@
         /// Уникальный идентификатор сообщения, на которое был дан ответ данного сообщения
         /// </summary>
         public string? ReplyToClientId { get; set; }
+        /// <summary>
+        /// Уникальный идентификатор сообщения, от которого поступил запрос/ответ в СМЭВ
+        /// </summary>
+        public string? OriginalClientId { get; set; }
     }
 }
