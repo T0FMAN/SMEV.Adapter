@@ -3,17 +3,17 @@
 namespace SMEV.Adapter.Types.SendMethod
 {
     /// <summary>
-    /// Класс для десериализации ответа от адаптера по методу <c>Send</c>
+    /// Данные отправленного сообщения в адаптер
     /// </summary>
-    public class ResponseSentMessage
+    public class MessageResult
     {
         /// <summary>
         /// Мнемоника ИС
         /// </summary>
         [JsonProperty("itSystem")]
-        public string MnemonicIS { get; set; } = default!;
+        public string ItSystem { get; set; } = default!;
         /// <summary>
-        /// ID сообщения
+        /// ID отправленного сообщения
         /// </summary>
         [JsonProperty("messageId")]
         public string MessageId { get; set; } = default!;

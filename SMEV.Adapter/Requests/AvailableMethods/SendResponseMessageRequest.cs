@@ -8,10 +8,10 @@ using System.Diagnostics.CodeAnalysis;
 namespace SMEV.Adapter.Requests.AvailableMethods
 {
     /// <summary>
-    ///  Используйте этот метод для отправки сообщения с ответом к СМЭВ. В случае успеха возвращается <see cref="ResponseSentMessage"/>
+    ///  Используйте этот метод для отправки сообщения с ответом к СМЭВ. В случае успеха возвращается <see cref="MessageResult"/>
     /// </summary>
     [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
-    public class SendResponseMessageRequest : RequestBase<ResponseSentMessage>
+    public class SendResponseMessageRequest : RequestBase<MessageResult>
     {
         /// <summary>
         /// Отправляемый ответ
