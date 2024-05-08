@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SMEV.Adapter.Converters;
 using System.Runtime.CompilerServices;
 
 namespace SMEV.Adapter.Extensions
@@ -19,7 +20,12 @@ namespace SMEV.Adapter.Extensions
             using var streamReader = new StreamReader(stream);
             using var jsonTextReader = new JsonTextReader(streamReader);
 
-            var jsonSerializer = JsonSerializer.CreateDefault();
+            var jsonSerializer = JsonSerializer.CreateDefault(
+                new JsonSerializerSettings()
+                {
+                    Converters = new List<JsonConverter> { new MessageItemConverter() }
+                });
+
             var searchResult = jsonSerializer.Deserialize<T>(jsonTextReader);
 
             return searchResult;
