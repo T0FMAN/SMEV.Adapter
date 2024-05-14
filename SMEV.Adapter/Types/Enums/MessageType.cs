@@ -1,21 +1,25 @@
 ﻿namespace SMEV.Adapter.Types.Enums
 {
     /// <summary>
-    /// Перечисление типов сообщения
+    /// Тип сообщения
     /// </summary>
     public enum MessageType
     {
         /// <summary>
-        /// Тип сообщения - запрос
+        /// Запрос
         /// </summary>
         RequestMessageType,
         /// <summary>
-        /// Тип сообщения - ответ
+        /// Ответ
         /// </summary>
         ResponseMessageType,
         /// <summary>
-        /// Индикация об сообщении с ошибкой - используется только для десериализации!
+        /// Ошибка
         /// </summary>
-        ErrorMessage
+        ErrorMessageType,
+        /// <summary>
+        /// Статус
+        /// </summary>
+        StatusMessageType
     }
 }
