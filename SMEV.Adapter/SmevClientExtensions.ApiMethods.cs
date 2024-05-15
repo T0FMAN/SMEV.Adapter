@@ -102,9 +102,9 @@ namespace SMEV.Adapter
         public static async Task<QueryResultList> FindMessagesByTimeRangeAsync(
             this ISmevClient client,
             DateTime fromDate,
-            DateTime toDate,
-            int? countToReturn = null,
-            int? offset = null,
+            DateTime? toDate = default,
+            int? countToReturn = default,
+            int? offset = default,
             string? mnemonicIS = default,
             CancellationToken cancellationToken = default) =>
             await client.ThrowIfNull()
@@ -133,7 +133,7 @@ namespace SMEV.Adapter
             string? mnemonicIS = default,
             string? nodeId = default,
             string? queue = default,
-            MessageFindType? findType = null,
+            MessageFindType? findType = default,
             CancellationToken cancellationToken = default) =>
             await client.ThrowIfNull()
             .MakeRequestAsync(
