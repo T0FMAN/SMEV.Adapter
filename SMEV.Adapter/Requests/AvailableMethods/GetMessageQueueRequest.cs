@@ -1,20 +1,47 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using SMEV.Adapter.Types.FindMethod;
+using SMEV.Adapter.Types.Enums;
+using SMEV.Adapter.Types.Find;
 
 namespace SMEV.Adapter.Requests.AvailableMethods
 {
     /// <summary>
-    /// Используйте этот метод для получения очереди и запроса. В случае успеха возвращается <see cref="QueryQueueMessage"/>
+    /// Используйте этот метод для получения сообщения из очереди. В случае успеха возвращается <see cref="AdapterMessage"/>
     /// </summary>
     [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
-    public class GetMessageQueueRequest : RequestBase<FoundMessage>
+    public class GetMessageQueueRequest : RequestBase<AdapterMessage>
     {
         /// <summary>
-        /// Инициализация нового запроса получения очереди и запроса
+        /// Код определенного узла ИС в ИУА
         /// </summary>
-        public GetMessageQueueRequest(string? mnemonicIS = default)
+        [JsonProperty("nodeId")]
+        public string? NodeId { get; set; } = default!;
+
+        /// <summary>
+        /// Наименование очереди для получения ответа на запрос
+        /// </summary>
+        [JsonProperty("routerExtraQueue")]
+        public string? Queue { get; set; } = default!;
+
+        /// <summary>
+        /// Тип сообщения для поиска
+        /// </summary>
+        [JsonProperty("messageTypeCriteria")]
+        public MessageFindType? FindType { get; set; }
+
+        /// <summary>
+        /// Инициализация нового запроса получения сообщения из очереди
+        /// </summary>
+        public GetMessageQueueRequest(
+            string? mnemonicIS = default,
+            string? nodeId = default,
+            string? queue = default,
+            MessageFindType? findType = null)
             : base("get", mnemonicIS)
-        { }
+        {
+            NodeId = nodeId;
+            Queue = queue;
+            FindType = findType;
+        }
     }
 }

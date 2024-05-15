@@ -1,18 +1,24 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using SMEV.Adapter.Types;
 using SMEV.Adapter.Types.MessageContent;
-using SMEV.Adapter.Types.SendMethod;
-using SMEV.Adapter.Types.SendMethod.Request;
+using SMEV.Adapter.Types.MessageMetadata;
 using System.Diagnostics.CodeAnalysis;
 
 namespace SMEV.Adapter.Requests.AvailableMethods
 {
     /// <summary>
-    /// Используйте этот метод для отправки сообщения с запросом к СМЭВ. В случае успеха возвращается <see cref="ResponseSentMessage"/>
+    /// Используйте этот метод для отправки сообщения с запросом к СМЭВ. В случае успеха возвращается <see cref="MessageResult"/>
     /// </summary>
     [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
-    public class SendRequestMessageRequest : RequestBase<ResponseSentMessage>
+    public class SendRequestMessageRequest : RequestBase<MessageResult>
     {
+        /// <summary>
+        /// Наименование очереди для отправки ответа
+        /// </summary>
+        [JsonProperty("replyToQueue", NullValueHandling = NullValueHandling.Ignore)]
+        public string? Queue { get; init; } = default!;
+
         /// <summary>
         /// Отправляемый запрос
         /// </summary>
@@ -26,17 +32,27 @@ namespace SMEV.Adapter.Requests.AvailableMethods
         public SendRequestMessageRequest(
             string clientId,
             string messageContent,
-            AttachmentHeaderList? attachmentHeaderList = null,
-            bool testMessage = false,
+            string? originalContent = default,
+            AttachmentHeaderList? attachmentHeaderList = default,
+            bool testMessage = default,
+            string? queue = default,
             string? mnemonicIS = default)
             : this(mnemonicIS)
         {
+            Queue = queue;
             RequestMessage = new RequestMessage(
-                metadata: new RequestMetadata(clientId, testMessage),
-                content: new ContentModel(
-                    new Content(
-                        messagePrimaryContent: new MessagePrimaryContent(messageContent),
-                        attachmentHeaderList)));
+                metadata: new RequestMetadata()
+                {
+                    ClientId = clientId,
+                    TestMessage = testMessage,
+                },
+                content: new RequestContent()
+                {
+                    OriginalContent = originalContent,
+                    Content = new Content(
+                        new MessagePrimaryContent(messageContent),
+                        attachmentHeaderList)
+                });
         }
 
         /// <summary>

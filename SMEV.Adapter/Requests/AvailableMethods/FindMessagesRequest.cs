@@ -1,13 +1,15 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using SMEV.Adapter.Types.Enums;
-using SMEV.Adapter.Types.FindMethod;
+using SMEV.Adapter.Types.Find;
 
 namespace SMEV.Adapter.Requests.AvailableMethods
 {
     /// <summary>
     /// Используйте этот метод для поиска сообщений по критериям. В случае успеха возвращается <see cref="QueryResult"/>
     /// </summary>
-    public class FindMessagesRequest : RequestBase<QueryResult>
+    [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
+    public class FindMessagesRequest : RequestBase<QueryResultList>
     {
         /// <summary>
         /// Контейнер вариантов запроса сообщений
@@ -38,9 +40,9 @@ namespace SMEV.Adapter.Requests.AvailableMethods
         /// <param name="offset">Смещение сообщения (необязательно)</param>
         public FindMessagesRequest(
             DateTimeOffset fromDate, 
-            DateTimeOffset toDate, 
-            int? countToReturn = null, 
-            int? offset = null,
+            DateTimeOffset? toDate = default, 
+            int? countToReturn = default, 
+            int? offset = default,
             string? mnemonicIS = default) 
             : this(
                   new SpecificQuery(

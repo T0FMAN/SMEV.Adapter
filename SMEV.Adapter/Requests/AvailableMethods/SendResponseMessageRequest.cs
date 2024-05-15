@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using SMEV.Adapter.Types;
 using SMEV.Adapter.Types.MessageContent;
-using SMEV.Adapter.Types.SendMethod;
-using SMEV.Adapter.Types.SendMethod.Response;
+using SMEV.Adapter.Types.MessageMetadata;
 using System.Diagnostics.CodeAnalysis;
 
 namespace SMEV.Adapter.Requests.AvailableMethods
@@ -27,17 +27,24 @@ namespace SMEV.Adapter.Requests.AvailableMethods
             string clientId,
             string replyToClientId,
             string messageContent,
-            AttachmentHeaderList? attachmentHeaderList = null,
-            bool testMessage = false,
+            string? originalContent = default,
+            AttachmentHeaderList? attachmentHeaderList = default,
             string? mnemonicIS = default)
             : this(mnemonicIS)
         {
             ResponseMessage = new ResponseMessage(
-                metadata: new ResponseMetadata(clientId, replyToClientId, testMessage),
-                content: new ContentModel(
-                    new Content(
-                        messagePrimaryContent: new MessagePrimaryContent(messageContent),
-                        attachmentHeaderList)));
+                metadata: new ResponseMetadata()
+                {
+                    ClientId = clientId,
+                    ReplyToClientId = replyToClientId
+                },
+                content: new ResponseContent()
+                {
+                    OriginalContent = originalContent,
+                    Content = new Content(
+                        new MessagePrimaryContent(messageContent),
+                        attachmentHeaderList)
+                });
         }
 
         /// <summary>
