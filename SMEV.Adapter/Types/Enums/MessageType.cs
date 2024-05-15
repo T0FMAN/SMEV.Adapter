@@ -1,8 +1,12 @@
-﻿namespace SMEV.Adapter.Types.Enums
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace SMEV.Adapter.Types.Enums
 {
     /// <summary>
     /// Тип сообщения
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum MessageType
     {
         /// <summary>
