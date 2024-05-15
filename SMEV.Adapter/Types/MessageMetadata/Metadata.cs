@@ -1,33 +1,14 @@
-﻿namespace SMEV.Adapter.Types.MessageMetadata
+﻿using Newtonsoft.Json;
+
+namespace SMEV.Adapter.Types.MessageMetadata
 {
     /// <summary>
-    /// Репрезентация блока метаданных сообщения
+    /// Метаданные сообщения
     /// </summary>
-    public class Metadata
+    public class Metadata : IMetadata
     {
-        /// <summary>
-        /// Уникальный идентификатор запроса
-        /// </summary>
+        /// <inheritdoc/>
+        [JsonProperty("clientId")]
         public string ClientId { get; set; } = default!;
-        /// <summary>
-        /// Ссылочная группа
-        /// </summary>
-        public LinkedGroupIdentity? LinkedGroupIdentity { get; set; }
-        /// <summary>
-        /// Тестовое сообщение
-        /// </summary>
-        public bool? TestMessage { get; set; }
-        /// <summary>
-        /// Код транзакции
-        /// </summary>
-        public string? TransactionCode { get; set; }
-        /// <summary>
-        /// Уникальный идентификатор сообщения, на которое был дан ответ данного сообщения
-        /// </summary>
-        public string? ReplyToClientId { get; set; }
-        /// <summary>
-        /// Уникальный идентификатор сообщения, от которого поступил запрос/ответ в СМЭВ
-        /// </summary>
-        public string? OriginalClientId { get; set; }
     }
 }

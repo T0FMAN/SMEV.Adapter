@@ -3,19 +3,25 @@
 namespace SMEV.Adapter.Types.MessageContent
 {
     /// <summary>
-    /// Класс представления контента сообщения
+    /// Контент сообщения
     /// </summary>
-    public sealed class Content
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+    public class Content
     {
         /// <summary>
         /// Инициализация контейнера контента сообщения
         /// </summary>
         /// <param name="messagePrimaryContent">Контейнер, содержащий сообщения запроса</param>
         /// <param name="attachmentHeaderList">Контейнер с информацией о вложениях (необязательный параметр)</param>
-        public Content(MessagePrimaryContent messagePrimaryContent, AttachmentHeaderList? attachmentHeaderList = null)
+        /// <param name="xmldSigSignatureType"></param>
+        public Content(
+            MessagePrimaryContent messagePrimaryContent, 
+            AttachmentHeaderList? attachmentHeaderList = default,
+            XmldSigSignatureType? xmldSigSignatureType = default)
         {
             MessagePrimaryContent = messagePrimaryContent;
             AttachmentHeaderList = attachmentHeaderList;
+            PersonalSignature = xmldSigSignatureType;
         }
 
         /// <summary>
@@ -23,10 +29,17 @@ namespace SMEV.Adapter.Types.MessageContent
         /// </summary>
         [JsonProperty("messagePrimaryContent")]
         public MessagePrimaryContent MessagePrimaryContent { get; set; }
+
         /// <summary>
         /// Контейнер с информацией о вложениях (необязательный параметр)
         /// </summary>
-        [JsonProperty("attachmentHeaderList", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("attachmentHeaderList")]
         public AttachmentHeaderList? AttachmentHeaderList { get; set; }
+
+        /// <summary>
+        /// Электронная подпись
+        /// </summary>
+        [JsonProperty("PersonalSignature")]
+        public XmldSigSignatureType? PersonalSignature { get; set; }
     }
 }

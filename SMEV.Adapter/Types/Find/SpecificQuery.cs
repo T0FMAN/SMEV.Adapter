@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SMEV.Adapter.Types.Enums;
 
-namespace SMEV.Adapter.Types.FindMethod
+namespace SMEV.Adapter.Types.Find
 {
     /// <summary>
     /// Класс контейнера, который включает варианты запроса сообщений.
@@ -19,7 +19,11 @@ namespace SMEV.Adapter.Types.FindMethod
         /// <param name="toDate">Метка времени, до которой искать сообщения</param>
         /// <param name="countToReturn">Количество сообщений, удовлетворяющих критериям поиска, которое необходимо вернуть</param>
         /// <param name="offset">Размер смещения по списку сообщений или порядковый номер сообщения, с которого начнется отбор запросов</param>
-        public SpecificQuery(DateTimeOffset fromDate, DateTimeOffset toDate, int? countToReturn = null, int? offset = null)
+        public SpecificQuery(
+            DateTimeOffset fromDate,
+            DateTimeOffset? toDate = default,
+            int? countToReturn = default,
+            int? offset = default)
         {
             MessagePeriodCriteria = new MessagePeriodCriteria(fromDate, toDate);
             MessageCountToReturn = countToReturn;

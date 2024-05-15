@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using SMEV.Adapter.Types.Enums;
 
-namespace SMEV.Adapter.Types.FindMethod
+namespace SMEV.Adapter.Types.Find
 {
     /// <summary>
     /// Контейнер для шаблона поиска запросов по идентификатору запроса
@@ -26,7 +26,7 @@ namespace SMEV.Adapter.Types.FindMethod
         /// <param name="clientId">Уникальный идентификатор</param>
         /// <param name="requestType">Тип критерия поиска</param>
         public MessageClientIdCriteria(
-            string clientId, 
+            string clientId,
             ClientCriteriaRequestType requestType)
         {
             ClientId = clientId;

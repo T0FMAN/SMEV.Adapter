@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Types.SendMethod
+namespace SMEV.Adapter.Types
 {
     /// <summary>
     /// Данные отправленного сообщения в адаптер

@@ -3,19 +3,27 @@
 namespace SMEV.Adapter.Types.MessageContent
 {
     /// <summary>
-    /// Статус сообщения
+    /// Бизнес статус запроса.
     /// </summary>
-    public sealed class Status
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
+    public class Status
     {
         /// <summary>
-        /// Код статуса
+        /// Код бизнес статуса запроса.
         /// </summary>
         [JsonProperty("code")]
-        public string Code { get; set; }
+        public string Code { get; set; } = default!;
+
         /// <summary>
-        /// Описание статуса сообщения
+        /// Описание бизнес статуса запроса.
         /// </summary>
         [JsonProperty("description")]
-        public string Description { get; set; }
+        public string Description { get; set; } = default!;
+
+        /// <summary>
+        /// Статусные параметры запроса.
+        /// </summary>
+        [JsonProperty("parameter")]
+        public List<StatusParameter>? Parameter { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace SMEV.Adapter.Types.MessageContent
     /// <summary>
     /// Контейнер с данными для сообщения запроса
     /// </summary>
-    public sealed class MessagePrimaryContent
+    public class MessagePrimaryContent
     {
         /// <summary>
         /// Инициализация контейнера сообщения запроса
@@ -13,13 +13,13 @@ namespace SMEV.Adapter.Types.MessageContent
         /// <param name="message">Бизнес-данные запроса, сформированные по XSD-схеме ВС в формате XML</param>
         public MessagePrimaryContent(string message)
         {
-            AnyMessage = message;
+            Message = message;
         }
 
         /// <summary>
         /// Бизнес-данные запроса, сформированные по XSD-схеме ВС в формате XML
         /// </summary>
         [JsonProperty("any")]
-        public string AnyMessage { get; set; }
+        public string Message { get; set; }
     }
 }

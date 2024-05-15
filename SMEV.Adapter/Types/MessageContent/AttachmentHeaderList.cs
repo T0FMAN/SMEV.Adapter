@@ -3,7 +3,7 @@
 namespace SMEV.Adapter.Types.MessageContent
 {
     /// <summary>
-    /// Класс контейнера с информацией о вложениях
+    /// Контейнер с информацией о вложениях
     /// </summary>
     public sealed class AttachmentHeaderList
     {
@@ -16,12 +16,12 @@ namespace SMEV.Adapter.Types.MessageContent
             Attachments = attachments;
         }
 
-        public AttachmentHeaderList() { }
+        private AttachmentHeaderList() { }
 
         /// <summary>
         /// Список вложений
         /// </summary>
         [JsonProperty("attachmentHeader")]
-        public List<AttachmentHeader> Attachments { get; set; }
+        public List<AttachmentHeader> Attachments { get; set; } = default!;
     }
 }

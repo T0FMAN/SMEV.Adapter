@@ -1,21 +1,22 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Types.FindMethod
+namespace SMEV.Adapter.Types.Find
 {
     /// <summary>
-    /// Репрезентация найденного сообщения
+    /// Данные сообщения
     /// </summary>
-    public sealed class FoundMessage
+    public class AdapterMessage
     {
         /// <summary>
         /// Метаданные сообщения
         /// </summary>
         [JsonProperty("smevMetadata")]
         public SmevMetadata SmevMetadata { get; set; } = default!;
+
         /// <summary>
         /// Тело сообщения
         /// </summary>
         [JsonProperty("message")]
-        public FoundMessageBody Message { get; set; } = default!;
+        public IMessage Message { get; set; } = default!;
     }
 }

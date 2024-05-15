@@ -1,14 +1,14 @@
 ﻿using Newtonsoft.Json;
 
-namespace SMEV.Adapter.Types.FindMethod
+namespace SMEV.Adapter.Types.Find
 {
     /// <summary>
-    /// Класс для контейнера временного диапазона, за который необходимо получить сообщения
+    /// Контейнер временного диапазона, за который необходимо получить сообщения
     /// </summary>
     public sealed class MessagePeriodCriteria
     {
-        private DateTimeOffset _from;
-        private DateTimeOffset _to;
+        private readonly DateTimeOffset _from;
+        private readonly DateTimeOffset? _to;
 
         private static readonly string mask = "yyyy-MM-dd'T'HH:mm:ssK";
 
@@ -17,7 +17,9 @@ namespace SMEV.Adapter.Types.FindMethod
         /// </summary>
         /// <param name="fromDate">Метка времени, от которой искать сообщения</param>
         /// <param name="toDate">Метка времени, до которой искать сообщения</param>
-        public MessagePeriodCriteria(DateTimeOffset fromDate, DateTimeOffset toDate)
+        public MessagePeriodCriteria(
+            DateTimeOffset fromDate,
+            DateTimeOffset? toDate = default)
         {
             _from = fromDate;
             _to = toDate;
@@ -37,7 +39,13 @@ namespace SMEV.Adapter.Types.FindMethod
         [JsonProperty("to")]
         public string ToDate
         {
-            get { return _to.ToString(mask); }
+            get
+            {
+                if (_to is null)
+                    return DateTimeOffset.UtcNow.ToString(mask);
+                else
+                    return _to.Value.ToString(mask);
+            }
         }
     }
 }
