@@ -11,8 +11,11 @@ namespace SMEV.Adapter
     /// </summary>
     public class SmevClient : ISmevClient
     {
-        readonly SmevClientOptions _options;
-        readonly HttpClient _httpClient;
+        /// <inheritdoc/>
+        public bool TestEnv { get; set; }
+
+        private readonly SmevClientOptions _options;
+        private readonly HttpClient _httpClient;
 
         /// <summary>
         /// Инициализация нового экземпляра <see cref="SmevClient"/>
@@ -52,8 +55,8 @@ namespace SMEV.Adapter
             IRequest<TResponse> request,
             CancellationToken cancellationToken = default)
         {
-            if (_options.IsSingleIS)
-                request.MnemonicIS = _options.MnemonicIS;
+            if (_options.SingleSystem)
+                request.MnemonicIS = _options.ItSystem;
             else
                 request.MnemonicIS.ThrowIfNull();
 
