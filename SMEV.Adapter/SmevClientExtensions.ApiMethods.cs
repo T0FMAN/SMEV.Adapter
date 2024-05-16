@@ -50,6 +50,7 @@ namespace SMEV.Adapter
             string messageContent,
             string? originalContent = default,
             AttachmentHeaderList? attachmentHeaderList = default,
+            bool? testMessage = false,
             string? mnemonicIS = default,
             CancellationToken cancellationToken = default) =>
             await client.ThrowIfNull()
@@ -60,6 +61,7 @@ namespace SMEV.Adapter
                     messageContent,
                     originalContent,
                     attachmentHeaderList,
+                    testMessage,
                     mnemonicIS),
                 cancellationToken)
             .ConfigureAwait(false);

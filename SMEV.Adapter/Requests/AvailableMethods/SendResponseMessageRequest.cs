@@ -29,6 +29,7 @@ namespace SMEV.Adapter.Requests.AvailableMethods
             string messageContent,
             string? originalContent = default,
             AttachmentHeaderList? attachmentHeaderList = default,
+            bool? testMessage = false,
             string? mnemonicIS = default)
             : this(mnemonicIS)
         {
@@ -36,7 +37,8 @@ namespace SMEV.Adapter.Requests.AvailableMethods
                 metadata: new ResponseMetadata()
                 {
                     ClientId = clientId,
-                    ReplyToClientId = replyToClientId
+                    ReplyToClientId = replyToClientId,
+                    TestMessage = testMessage
                 },
                 content: new ResponseContent()
                 {

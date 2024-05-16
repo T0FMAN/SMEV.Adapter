@@ -22,5 +22,11 @@ namespace SMEV.Adapter.Types.MessageMetadata
         /// </summary>
         [JsonProperty("replyTo")]
         public string? ReplyTo { get; set; }
+
+        /// <summary>
+        /// <para>Флаг, указывающий на тестовое сообщение</para>
+        /// </summary>
+        [JsonProperty("testMessage")]
+        public bool? TestMessage { get; set; }
     }
 }
