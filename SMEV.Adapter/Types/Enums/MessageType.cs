@@ -10,20 +10,24 @@ namespace SMEV.Adapter.Types.Enums
     public enum MessageType
     {
         /// <summary>
-        /// Запрос
+        /// Сообщение-запрос
         /// </summary>
         RequestMessageType,
         /// <summary>
-        /// Ответ
+        /// Сообщение-ответ
         /// </summary>
         ResponseMessageType,
         /// <summary>
-        /// Ошибка
+        /// Сообщение ошибки
         /// </summary>
         ErrorMessageType,
         /// <summary>
-        /// Статус
+        /// Статусное сообщение
         /// </summary>
-        StatusMessageType
+        StatusMessageType,
+        /// <summary>
+        /// Сообщение запроса (не RequestMessageType)
+        /// </summary>
+        QueryMessageType
     }
 }
