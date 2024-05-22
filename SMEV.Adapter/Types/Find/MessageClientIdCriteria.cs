@@ -9,18 +9,6 @@ namespace SMEV.Adapter.Types.Find
     public sealed class MessageClientIdCriteria
     {
         /// <summary>
-        /// Тип запроса для критерия поиска
-        /// </summary>
-        private ClientCriteriaRequestType RequestType { get; set; }
-
-        private static readonly Dictionary<ClientCriteriaRequestType, string> RequestTypeDictionary = new()
-        {
-            { ClientCriteriaRequestType.RequestByRequest, "GET_REQUEST_BY_REQUEST_CLIENTID" },
-            { ClientCriteriaRequestType.ResponseByResponse, "GET_RESPONSE_BY_RESPONSE_CLIENTID" },
-            { ClientCriteriaRequestType.ResponseByRequest, "GET_RESPONSE_BY_REQUEST_CLIENTID" }
-        };
-
-        /// <summary>
         /// Инициализация контейнера шаблона поиска сообщений по уникальному идентификатору
         /// </summary>
         /// <param name="clientId">Уникальный идентификатор</param>
@@ -30,7 +18,7 @@ namespace SMEV.Adapter.Types.Find
             ClientCriteriaRequestType requestType)
         {
             ClientId = clientId;
-            RequestType = requestType;
+            ClientIdCriteria = requestType;
         }
 
         /// <summary>
@@ -42,14 +30,6 @@ namespace SMEV.Adapter.Types.Find
         /// Тип запроса
         /// </summary>
         [JsonProperty("clientIdCriteria")]
-        public string ClientIdCriteria
-        {
-            get
-            {
-                RequestTypeDictionary.TryGetValue(RequestType, out var value);
-
-                return value!;
-            }
-        }
+        public ClientCriteriaRequestType ClientIdCriteria { get; set; }
     }
 }
