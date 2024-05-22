@@ -2,6 +2,8 @@
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using SMEV.Adapter.Types;
+using SMEV.Adapter.Types.Enums;
+using SMEV.Adapter.Types.Find;
 
 namespace SMEV.Adapter.Converters
 {
@@ -12,19 +14,24 @@ namespace SMEV.Adapter.Converters
             throw new NotImplementedException();
         }
 
-        public IMessage Create(Type objectType, JObject jObject)
+        public static IMessage Create(Type objectType, JObject jObject)
         {
             var type = (string)jObject.Property("messageType")!;
 
-            switch (type)
-            {
-                case "ResponseMessageType":
-                    return new ResponseMessage();
-                case "RequestMessageType":
-                    return new RequestMessage();
-            }
+            var correctType = Enum.TryParse<MessageType>(type, out var messageType);
 
-            throw new ApplicationException(string.Format("The message type {0} is not supported!", type));
+            if (!correctType)
+                throw new ArgumentException($"Тип сообщения {type} отсутствует в перечислении");
+
+            return messageType switch
+            {
+                MessageType.ErrorMessageType => new ErrorMessage(),
+                MessageType.StatusMessageType => new StatusMessage(),
+                MessageType.QueryMessageType => new QueryMessage(),
+                MessageType.ResponseMessageType => new ResponseMessage(),
+                MessageType.RequestMessageType => new RequestMessage(),
+                _ => throw new ApplicationException($"Тип сообщения {messageType} не поддерживается!"),
+            };
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
