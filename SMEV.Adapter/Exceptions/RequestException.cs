@@ -3,62 +3,60 @@
 namespace SMEV.Adapter.Exceptions
 {
     /// <summary>
-    /// Represents a request error
+    /// Представление ошибки запроса.
     /// </summary>
     public class RequestException : Exception
     {
         /// <summary>
-        /// <see cref="HttpStatusCode"/> of the received response
+        /// <see cref="System.Net.HttpStatusCode"/> полученного ответа.
         /// </summary>
         public HttpStatusCode? HttpStatusCode { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RequestException"/> class.
+        /// Инициализация нового экземпляра <see cref="RequestException"/>.
         /// </summary>
-        /// <param name="message">The message that describes the error.</param>
+        /// <param name="message">Сообщение, описывающее ошибку.</param>
         public RequestException(string message)
             : base(message)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RequestException"/> class.
+        /// Инициализация нового экземпляра <see cref="RequestException"/>.
         /// </summary>
         /// <param name="message">
-        /// The error message that explains the reason for the exception.
+        /// Сообщение об ошибке, объясняющее причину возникновения исключения.
         /// </param>
         /// <param name="innerException">
-        /// The exception that is the cause of the current exception, or a null reference
-        /// (Nothing in Visual Basic) if no inner exception is specified.
+        /// Исключение, которое является причиной текущего исключения, или нулевая ссылка, если не указано внутреннее исключение.
         /// </param>
         public RequestException(string message, Exception innerException)
             : base(message, innerException)
         { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RequestException"/> class.
+        /// Инициализация нового экземпляра <see cref="RequestException"/>.
         /// </summary>
         /// <param name="message">
-        /// The error message that explains the reason for the exception.
+        /// Сообщение об ошибке, объясняющее причину возникновения исключения.
         /// </param>
         /// <param name="httpStatusCode">
-        /// <see cref="HttpStatusCode"/> of the received response
+        /// <see cref="System.Net.HttpStatusCode"/> полученного ответа.
         /// </param>
         public RequestException(string message, HttpStatusCode httpStatusCode)
             : base(message) =>
             HttpStatusCode = httpStatusCode;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RequestException"/> class.
+        /// Инициализация нового экземпляра <see cref="RequestException"/>.
         /// </summary>
         /// <param name="message">
-        /// The error message that explains the reason for the exception.
+        /// Сообщение об ошибке, объясняющее причину возникновения исключения.
         /// </param>
         /// <param name="httpStatusCode">
-        /// <see cref="HttpStatusCode"/> of the received response
+        /// <see cref="System.Net.HttpStatusCode"/> полученного ответа.
         /// </param>
         /// <param name="innerException">
-        /// The exception that is the cause of the current exception, or a null reference
-        /// (Nothing in Visual Basic) if no inner exception is specified.
+        /// Исключение, которое является причиной текущего исключения, или нулевая ссылка, если не указано внутреннее исключение.
         /// </param>
         public RequestException(string message, HttpStatusCode httpStatusCode, Exception innerException)
             : base(message, innerException) =>
