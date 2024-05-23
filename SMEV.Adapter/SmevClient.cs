@@ -55,12 +55,12 @@ namespace SMEV.Adapter
             IRequest<TResponse> request,
             CancellationToken cancellationToken = default)
         {
+            ArgumentNullException.ThrowIfNull(request);
+
             if (_options.SingleSystem)
                 request.MnemonicIS = _options.ItSystem;
             else
                 request.MnemonicIS.ThrowIfNull();
-
-            ArgumentNullException.ThrowIfNull(request);
 
             var url = $"{_options.BaseAddress}/{request.MethodName}";
 
@@ -83,7 +83,6 @@ namespace SMEV.Adapter
                 //    .DeserializeContentAsync<ApiResponse>(
                 //        guard: response =>
                 //            response.ErrorCode == default ||
-                //            // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
                 //            response.Description is null
                 //    )
                 //    .ConfigureAwait(false);
@@ -104,6 +103,7 @@ namespace SMEV.Adapter
                 CancellationToken cancellationToken)
             {
                 HttpResponseMessage? httpResponse;
+
                 try
                 {
                     httpResponse = await httpClient
@@ -116,13 +116,13 @@ namespace SMEV.Adapter
                         throw;
 
                     throw new RequestException(
-                        message: "Request timed out", 
+                        message: "Время запроса вышло", 
                         innerException: exception);
                 }
                 catch (Exception exception)
                 {
                     throw new RequestException(
-                        message: "Exception during making request",
+                        message: "Исключение при отправке запроса",
                         innerException: exception);
                 }
 
