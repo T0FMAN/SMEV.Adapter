@@ -25,7 +25,7 @@ namespace SMEV.Adapter.Converters
 
             return messageType switch
             {
-                MessageType.ErrorMessageType => new ErrorMessage(),
+                MessageType.ErrorMessage => new ErrorMessage(),
                 MessageType.StatusMessageType => new StatusMessage(),
                 MessageType.QueryMessageType => new QueryMessage(),
                 MessageType.ResponseMessageType => new ResponseMessage(),

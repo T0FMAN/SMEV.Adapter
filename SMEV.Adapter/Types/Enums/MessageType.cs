@@ -20,7 +20,7 @@ namespace SMEV.Adapter.Types.Enums
         /// <summary>
         /// Сообщение ошибки
         /// </summary>
-        ErrorMessageType,
+        ErrorMessage,
         /// <summary>
         /// Статусное сообщение
         /// </summary>
