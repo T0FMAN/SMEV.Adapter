@@ -3,30 +3,30 @@
 namespace SMEV.Adapter.Requests.Abstractions
 {
     /// <summary>
-    /// Represents a request to API
+    /// Представление запроса к API.
     /// </summary>
     public interface IRequest
     {
         /// <summary>
-        /// Мнемоника ИС
+        /// Мнемоника ИС.
         /// </summary>
         [JsonProperty("itSystem")]
         public string? MnemonicIS { get; set; }
 
         /// <summary>
-        /// HTTP method of request
+        /// HTTP-метод запроса.
         /// </summary>
         HttpMethod Method { get; }
 
         /// <summary>
-        /// API method name
+        /// Имя метода API.
         /// </summary>
         string MethodName { get; }
 
         /// <summary>
-        /// Generate content of HTTP message
+        /// Создание содержимого (тела) HTTP-сообщения.
         /// </summary>
-        /// <returns>Content of HTTP request</returns>
+        /// <returns>Контент HTTP-запроса.</returns>
         HttpContent? ToHttpContent();
     }
 }

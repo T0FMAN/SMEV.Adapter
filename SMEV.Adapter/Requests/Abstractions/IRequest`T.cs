@@ -1,9 +1,9 @@
 ﻿namespace SMEV.Adapter.Requests.Abstractions
 {
     /// <summary>
-    /// Represents a request to API
+    /// Представление запроса к API.
     /// </summary>
-    /// <typeparam name="TResponse">Type of result expected in result</typeparam>
+    /// <typeparam name="TResponse">Тип результата, ожидаемого в теле ответа.</typeparam>
     public interface IRequest<TResponse> : IRequest
     { }
 }

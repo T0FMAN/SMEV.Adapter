@@ -6,9 +6,9 @@ using System.Text;
 namespace SMEV.Adapter.Requests
 {
     /// <summary>
-    /// Represents an API request
+    /// Представление запроса к API.
     /// </summary>
-    /// <typeparam name="TResponse">Type of result expected in result</typeparam>
+    /// <typeparam name="TResponse">Тип результата, ожидаемого в теле ответа.</typeparam>
     [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public abstract class RequestBase<TResponse> : IRequest<TResponse>
     {
@@ -25,30 +25,27 @@ namespace SMEV.Adapter.Requests
         public string MethodName { get; }
 
         /// <summary>
-        /// Initializes an instance of request
+        /// Инициализация экземпляра запроса.
         /// </summary>
-        /// <param name="methodName">API method</param>
-        /// <param name="mnemonicIS">Мнемоника ИС</param>
+        /// <param name="methodName">Метод API.</param>
+        /// <param name="mnemonicIS">Мнемоника ИС.</param>
         protected RequestBase(string methodName, string? mnemonicIS = default)
             : this(methodName, mnemonicIS, HttpMethod.Post)
         { }
 
         /// <summary>
-        /// Initializes an instance of request
+        /// Инициализация экземпляра запроса.
         /// </summary>
-        /// <param name="methodName">API method</param>
-        /// <param name="mnemonicIS">Мнемоника ИС</param>
-        /// <param name="method">HTTP method to use</param>
+        /// <param name="methodName">Метод API.</param>
+        /// <param name="mnemonicIS">Мнемоника ИС.</param>
+        /// <param name="method">HTTP-метод для исполования.</param>
         protected RequestBase(
             string methodName, 
             string? mnemonicIS, 
             HttpMethod method) =>
             (MethodName, Method, MnemonicIS) = (methodName, method, mnemonicIS);
 
-        /// <summary>
-        /// Generate content of HTTP message
-        /// </summary>
-        /// <returns>Content of HTTP request</returns>
+        /// <inheritdoc/>
         public virtual HttpContent? ToHttpContent() =>
             new StringContent(
                 content: JsonConvert.SerializeObject(this),
