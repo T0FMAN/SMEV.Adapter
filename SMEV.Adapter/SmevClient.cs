@@ -1,7 +1,6 @@
 ﻿using SMEV.Adapter.Exceptions;
 using SMEV.Adapter.Extensions;
 using SMEV.Adapter.Requests.Abstractions;
-using System.Net;
 using System.Runtime.CompilerServices;
 
 namespace SMEV.Adapter
@@ -29,6 +28,7 @@ namespace SMEV.Adapter
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
             _httpClient = httpClient ?? new HttpClient();
+            TestEnv = options.TestEnv;
         }
 
         /// <summary>
@@ -77,17 +77,9 @@ namespace SMEV.Adapter
                 cancellationToken: cancellationToken)
                 .ConfigureAwait(false);
 
-            if (httpResponse.StatusCode != HttpStatusCode.OK)
+            if (!httpResponse.IsSuccessStatusCode)
             {
-                //var failedApiResponse = await httpResponse
-                //    .DeserializeContentAsync<ApiResponse>(
-                //        guard: response =>
-                //            response.ErrorCode == default ||
-                //            response.Description is null
-                //    )
-                //    .ConfigureAwait(false);
-
-                //throw ExceptionsParser.Parse(failedApiResponse);
+                throw new NotImplementedException();
             }
 
             var apiResponse = await httpResponse
