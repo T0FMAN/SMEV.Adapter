@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace SMEV.Adapter.Requests.Abstractions
+﻿namespace SMEV.Adapter.Requests.Abstractions
 {
     /// <summary>
     /// Представление запроса к API.
@@ -10,7 +8,6 @@ namespace SMEV.Adapter.Requests.Abstractions
         /// <summary>
         /// Мнемоника ИС.
         /// </summary>
-        [JsonProperty("itSystem")]
         public string? MnemonicIS { get; set; }
 
         /// <summary>
