@@ -4,6 +4,7 @@ using SMEV.Adapter.Types;
 using SMEV.Adapter.Types.MessageContent;
 using SMEV.Adapter.Types.MessageMetadata;
 using System.Diagnostics.CodeAnalysis;
+using System.Xml;
 
 namespace SMEV.Adapter.Requests.AvailableMethods
 {
@@ -33,6 +34,9 @@ namespace SMEV.Adapter.Requests.AvailableMethods
             string? mnemonicIS = default)
             : this(mnemonicIS)
         {
+            var xmlDoc = new XmlDocument();
+            xmlDoc.LoadXml(messageContent);
+
             ResponseMessage = new ResponseMessage(
                 metadata: new ResponseMetadata()
                 {
@@ -44,7 +48,7 @@ namespace SMEV.Adapter.Requests.AvailableMethods
                 {
                     OriginalContent = originalContent,
                     Content = new Content(
-                        new MessagePrimaryContent(messageContent),
+                        new MessagePrimaryContent(xmlDoc),
                         attachmentHeaderList)
                 });
         }
