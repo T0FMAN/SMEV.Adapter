@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Xml;
 
 namespace SMEV.Adapter.Types.MessageContent
 {
@@ -11,15 +12,19 @@ namespace SMEV.Adapter.Types.MessageContent
         /// Инициализация контейнера сообщения запроса
         /// </summary>
         /// <param name="message">Бизнес-данные запроса, сформированные по XSD-схеме ВС в формате XML</param>
-        public MessagePrimaryContent(string message)
+        [JsonConstructor]
+        public MessagePrimaryContent([JsonProperty("any")] string message)
         {
-            Message = message;
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml(message);
+
+            XmlDocument = xmlDocument;
         }
 
         /// <summary>
         /// Бизнес-данные запроса, сформированные по XSD-схеме ВС в формате XML
         /// </summary>
-        [JsonProperty("any")]
-        public string Message { get; set; }
+        [JsonIgnore]
+        public XmlDocument XmlDocument { get; set; }
     }
 }
