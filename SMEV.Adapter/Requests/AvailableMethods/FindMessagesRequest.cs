@@ -6,7 +6,7 @@ using SMEV.Adapter.Types.Find;
 namespace SMEV.Adapter.Requests.AvailableMethods
 {
     /// <summary>
-    /// Используйте этот метод для поиска сообщений по критериям. В случае успеха возвращается <see cref="QueryResult"/>
+    /// Используйте этот метод для поиска сообщений по критериям. В случае успеха возвращается <see cref="QueryResultList"/>
     /// </summary>
     [JsonObject(MemberSerialization.OptIn, NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public class FindMessagesRequest : RequestBase<QueryResultList>
