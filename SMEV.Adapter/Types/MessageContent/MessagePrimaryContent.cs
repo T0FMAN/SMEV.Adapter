@@ -33,6 +33,16 @@ namespace SMEV.Adapter.Types.MessageContent
         /// Бизнес-данные запроса, сформированные по XSD-схеме ВС в формате XML
         /// </summary>
         [JsonIgnore]
-        public XmlDocument MessageDocument { get; private set; } = default!;
+        public XmlDocument MessageDocument 
+        {
+            get
+            {
+                var xDoc = new XmlDocument();
+                xDoc.LoadXml(_message);
+
+                return xDoc;
+            }
+            private set { }
+        }
     }
 }
